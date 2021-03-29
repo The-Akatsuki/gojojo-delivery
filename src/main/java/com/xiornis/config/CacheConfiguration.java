@@ -48,6 +48,34 @@ public class CacheConfiguration {
             createCache(cm, com.xiornis.domain.User.class.getName());
             createCache(cm, com.xiornis.domain.Authority.class.getName());
             createCache(cm, com.xiornis.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.xiornis.domain.Order.class.getName());
+            createCache(cm, com.xiornis.domain.Order.class.getName() + ".shipmentActivities");
+            createCache(cm, com.xiornis.domain.Order.class.getName() + ".wallets");
+            createCache(cm, com.xiornis.domain.Product.class.getName());
+            createCache(cm, com.xiornis.domain.Product.class.getName() + ".categories");
+            createCache(cm, com.xiornis.domain.Product.class.getName() + ".orders");
+            createCache(cm, com.xiornis.domain.PaymentMethod.class.getName());
+            createCache(cm, com.xiornis.domain.PaymentMethod.class.getName() + ".orders");
+            createCache(cm, com.xiornis.domain.Category.class.getName());
+            createCache(cm, com.xiornis.domain.Category.class.getName() + ".categories");
+            createCache(cm, com.xiornis.domain.OrderBuyerDetails.class.getName());
+            createCache(cm, com.xiornis.domain.PinCodes.class.getName());
+            createCache(cm, com.xiornis.domain.PickupAddress.class.getName());
+            createCache(cm, com.xiornis.domain.PickupAddress.class.getName() + ".orders");
+            createCache(cm, com.xiornis.domain.Manifest.class.getName());
+            createCache(cm, com.xiornis.domain.Escalation.class.getName());
+            createCache(cm, com.xiornis.domain.Escalation.class.getName() + ".manifests");
+            createCache(cm, com.xiornis.domain.CourierCompany.class.getName());
+            createCache(cm, com.xiornis.domain.CourierCompany.class.getName() + ".manifests");
+            createCache(cm, com.xiornis.domain.ReasonEscalation.class.getName());
+            createCache(cm, com.xiornis.domain.ReasonEscalation.class.getName() + ".escalations");
+            createCache(cm, com.xiornis.domain.ReturnReason.class.getName());
+            createCache(cm, com.xiornis.domain.ReturnLabel.class.getName());
+            createCache(cm, com.xiornis.domain.ReturnLabel.class.getName() + ".returnReasons");
+            createCache(cm, com.xiornis.domain.ShipmentActivity.class.getName());
+            createCache(cm, com.xiornis.domain.Wallet.class.getName());
+            createCache(cm, com.xiornis.domain.Wallet.class.getName() + ".transactions");
+            createCache(cm, com.xiornis.domain.Transaction.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

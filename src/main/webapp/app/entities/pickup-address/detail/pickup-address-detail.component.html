@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pickupAddress">
+      <h2 data-cy="pickupAddressDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.detail.title">Pickup Address</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pickupAddress.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.nickName">Nick Name</span></dt>
+        <dd>
+          <span>{{ pickupAddress.nickName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.mobile">Mobile</span></dt>
+        <dd>
+          <span>{{ pickupAddress.mobile }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.alternateMobile">Alternate Mobile</span></dt>
+        <dd>
+          <span>{{ pickupAddress.alternateMobile }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.email">Email</span></dt>
+        <dd>
+          <span>{{ pickupAddress.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.addressline1">Addressline 1</span></dt>
+        <dd>
+          <span>{{ pickupAddress.addressline1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.addressline2">Addressline 2</span></dt>
+        <dd>
+          <span>{{ pickupAddress.addressline2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.pincode">Pincode</span></dt>
+        <dd>
+          <span>{{ pickupAddress.pincode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.city">City</span></dt>
+        <dd>
+          <span>{{ pickupAddress.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.state">State</span></dt>
+        <dd>
+          <span>{{ pickupAddress.state }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.country">Country</span></dt>
+        <dd>
+          <span>{{ pickupAddress.country }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.companyName">Company Name</span></dt>
+        <dd>
+          <span>{{ pickupAddress.companyName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.isMobileVerified">Is Mobile Verified</span></dt>
+        <dd>
+          <span>{{ pickupAddress.isMobileVerified }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pickupAddress.otp">Otp</span></dt>
+        <dd>
+          <span>{{ pickupAddress.otp }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pickup-address', pickupAddress.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

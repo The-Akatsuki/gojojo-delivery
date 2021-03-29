@@ -1,0 +1,74 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="courierCompany">
+      <h2 data-cy="courierCompanyDetailsHeading">
+        <span jhiTranslate="gojojoDeliveryApp.courierCompany.detail.title">Courier Company</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ courierCompany.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.name">Name</span></dt>
+        <dd>
+          <span>{{ courierCompany.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.mobile">Mobile</span></dt>
+        <dd>
+          <span>{{ courierCompany.mobile }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.alternateMobile">Alternate Mobile</span></dt>
+        <dd>
+          <span>{{ courierCompany.alternateMobile }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.email">Email</span></dt>
+        <dd>
+          <span>{{ courierCompany.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.addressline1">Addressline 1</span></dt>
+        <dd>
+          <span>{{ courierCompany.addressline1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.addressline2">Addressline 2</span></dt>
+        <dd>
+          <span>{{ courierCompany.addressline2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.pincode">Pincode</span></dt>
+        <dd>
+          <span>{{ courierCompany.pincode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.city">City</span></dt>
+        <dd>
+          <span>{{ courierCompany.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.state">State</span></dt>
+        <dd>
+          <span>{{ courierCompany.state }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.country">Country</span></dt>
+        <dd>
+          <span>{{ courierCompany.country }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.courierCompany.image">Image</span></dt>
+        <dd>
+          <span>{{ courierCompany.image }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/courier-company', courierCompany.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

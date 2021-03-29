@@ -42,7 +42,26 @@
     "jwtSecretKey": "YmFiNzA2Y2RlNDM2YTU1MTRhZTZhMTBlNmE1YzliZjYwYzYxOWQwNWViYTY3NWVlZTZkYmY0MTVmOGNhZjQ1NTBjM2FmY2QxZDZiMTY0MGU4YTEzZGE2ZGNiZDJhNzgwNDhmODBkNzI1OTI1YTc3Nzc2MmNiZWZkOGQ5MTI4M2I=",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "reactive": false
+    "reactive": false,
+    "entities": [
+      "Order",
+      "Product",
+      "PaymentMethod",
+      "Category",
+      "OrderBuyerDetails",
+      "PinCodes",
+      "PickupAddress",
+      "Manifest",
+      "Escalation",
+      "CourierCompany",
+      "ReasonEscalation",
+      "ReturnReason",
+      "ReturnLabel",
+      "ShipmentActivity",
+      "Wallet",
+      "Transaction"
+    ],
+    "lastLiquibaseTimestamp": 1617028264000
   },
   "git-provider": "GitHub",
   "git-company": "The-Akatsuki",

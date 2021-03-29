@@ -1,0 +1,32 @@
+{
+  "gojojoDeliveryApp": {
+    "manifest": {
+      "home": {
+        "title": "Manifests",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Manifest",
+        "createOrEditLabel": "Create or edit a Manifest",
+        "notFound": "No Manifests found"
+      },
+      "created": "A new Manifest is created with identifier {{ param }}",
+      "updated": "A Manifest is updated with identifier {{ param }}",
+      "deleted": "A Manifest is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Manifest {{ id }}?"
+      },
+      "detail": {
+        "title": "Manifest"
+      },
+      "id": "ID",
+      "manifestId": "Manifest Id",
+      "awb": "Awb",
+      "awbAssignedDate": "Awb Assigned Date",
+      "pickupException": "Pickup Exception",
+      "remarks": "Remarks",
+      "pickupReferenceNumber": "Pickup Reference Number",
+      "status": "Status",
+      "courier": "Courier",
+      "escalation": "Escalation"
+    }
+  }
+}

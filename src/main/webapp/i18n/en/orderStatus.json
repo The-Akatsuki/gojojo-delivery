@@ -1,0 +1,11 @@
+{
+  "gojojoDeliveryApp": {
+    "OrderStatus": {
+      "null": "",
+      "Processing": "Processing",
+      "ReadyToShip": "ReadyToShip",
+      "Manifest": "Manifest",
+      "Return": "Return"
+    }
+  }
+}

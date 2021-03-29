@@ -1,0 +1,27 @@
+{
+  "gojojoDeliveryApp": {
+    "pinCodes": {
+      "home": {
+        "title": "PinCodes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Pin Codes बनाएँ",
+        "createOrEditLabel": "Pin Codes बनाएँ या संपादित करें",
+        "notFound": "No Pin Codes found"
+      },
+      "created": "एक नया Pin Codes [identifier: {{ param }}] तैयार है",
+      "updated": "एक Pin Codes [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Pin Codes [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Pin Codes [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Pin Codes"
+      },
+      "id": "ID",
+      "pin": "Pin",
+      "city": "City",
+      "state": "State",
+      "country": "Country"
+    }
+  }
+}

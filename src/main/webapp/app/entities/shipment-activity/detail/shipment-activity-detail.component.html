@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="shipmentActivity">
+      <h2 data-cy="shipmentActivityDetailsHeading">
+        <span jhiTranslate="gojojoDeliveryApp.shipmentActivity.detail.title">Shipment Activity</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ shipmentActivity.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.shipmentActivity.status">Status</span></dt>
+        <dd>
+          <span>{{ shipmentActivity.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.shipmentActivity.pincode">Pincode</span></dt>
+        <dd>
+          <span>{{ shipmentActivity.pincode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.shipmentActivity.location">Location</span></dt>
+        <dd>
+          <span>{{ shipmentActivity.location }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.shipmentActivity.order">Order</span></dt>
+        <dd>
+          <div *ngIf="shipmentActivity.order">
+            <a [routerLink]="['/order', shipmentActivity.order?.id, 'view']">{{ shipmentActivity.order?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/shipment-activity', shipmentActivity.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

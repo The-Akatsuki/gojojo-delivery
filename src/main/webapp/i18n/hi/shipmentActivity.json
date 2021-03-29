@@ -1,0 +1,27 @@
+{
+  "gojojoDeliveryApp": {
+    "shipmentActivity": {
+      "home": {
+        "title": "ShipmentActivities",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Shipment Activity बनाएँ",
+        "createOrEditLabel": "Shipment Activity बनाएँ या संपादित करें",
+        "notFound": "No Shipment Activities found"
+      },
+      "created": "एक नया Shipment Activity [identifier: {{ param }}] तैयार है",
+      "updated": "एक Shipment Activity [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Shipment Activity [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Shipment Activity [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Shipment Activity"
+      },
+      "id": "ID",
+      "status": "Status",
+      "pincode": "Pincode",
+      "location": "Location",
+      "order": "Order"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "gojojoDeliveryApp": {
+    "reasonEscalation": {
+      "home": {
+        "title": "Reason Escalations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Reason Escalation",
+        "createOrEditLabel": "Create or edit a Reason Escalation",
+        "notFound": "No Reason Escalations found"
+      },
+      "created": "A new Reason Escalation is created with identifier {{ param }}",
+      "updated": "A Reason Escalation is updated with identifier {{ param }}",
+      "deleted": "A Reason Escalation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Reason Escalation {{ id }}?"
+      },
+      "detail": {
+        "title": "Reason Escalation"
+      },
+      "id": "ID",
+      "title": "Title",
+      "escalation": "Escalation"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "gojojoDeliveryApp": {
+    "escalation": {
+      "home": {
+        "title": "Escalations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Escalation बनाएँ",
+        "createOrEditLabel": "Escalation बनाएँ या संपादित करें",
+        "notFound": "No Escalations found"
+      },
+      "created": "एक नया Escalation [identifier: {{ param }}] तैयार है",
+      "updated": "एक Escalation [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Escalation [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Escalation [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Escalation"
+      },
+      "id": "ID",
+      "remark": "Remark",
+      "manifest": "Manifest",
+      "reason": "Reason"
+    }
+  }
+}

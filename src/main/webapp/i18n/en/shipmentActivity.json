@@ -1,0 +1,27 @@
+{
+  "gojojoDeliveryApp": {
+    "shipmentActivity": {
+      "home": {
+        "title": "Shipment Activities",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Shipment Activity",
+        "createOrEditLabel": "Create or edit a Shipment Activity",
+        "notFound": "No Shipment Activities found"
+      },
+      "created": "A new Shipment Activity is created with identifier {{ param }}",
+      "updated": "A Shipment Activity is updated with identifier {{ param }}",
+      "deleted": "A Shipment Activity is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Shipment Activity {{ id }}?"
+      },
+      "detail": {
+        "title": "Shipment Activity"
+      },
+      "id": "ID",
+      "status": "Status",
+      "pincode": "Pincode",
+      "location": "Location",
+      "order": "Order"
+    }
+  }
+}

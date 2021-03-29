@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="manifest">
+      <h2 data-cy="manifestDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.manifest.detail.title">Manifest</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ manifest.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.manifestId">Manifest Id</span></dt>
+        <dd>
+          <span>{{ manifest.manifestId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.awb">Awb</span></dt>
+        <dd>
+          <span>{{ manifest.awb }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.awbAssignedDate">Awb Assigned Date</span></dt>
+        <dd>
+          <span>{{ manifest.awbAssignedDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.pickupException">Pickup Exception</span></dt>
+        <dd>
+          <span>{{ manifest.pickupException }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.remarks">Remarks</span></dt>
+        <dd>
+          <span>{{ manifest.remarks }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.pickupReferenceNumber">Pickup Reference Number</span></dt>
+        <dd>
+          <span>{{ manifest.pickupReferenceNumber }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.status">Status</span></dt>
+        <dd>
+          <span>{{ manifest.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.courier">Courier</span></dt>
+        <dd>
+          <div *ngIf="manifest.courier">
+            <a [routerLink]="['/courier-company', manifest.courier?.id, 'view']">{{ manifest.courier?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.manifest.escalation">Escalation</span></dt>
+        <dd>
+          <div *ngIf="manifest.escalation">
+            <a [routerLink]="['/escalation', manifest.escalation?.id, 'view']">{{ manifest.escalation?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/manifest', manifest.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

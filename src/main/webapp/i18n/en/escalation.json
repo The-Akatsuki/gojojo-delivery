@@ -1,0 +1,26 @@
+{
+  "gojojoDeliveryApp": {
+    "escalation": {
+      "home": {
+        "title": "Escalations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Escalation",
+        "createOrEditLabel": "Create or edit a Escalation",
+        "notFound": "No Escalations found"
+      },
+      "created": "A new Escalation is created with identifier {{ param }}",
+      "updated": "A Escalation is updated with identifier {{ param }}",
+      "deleted": "A Escalation is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Escalation {{ id }}?"
+      },
+      "detail": {
+        "title": "Escalation"
+      },
+      "id": "ID",
+      "remark": "Remark",
+      "manifest": "Manifest",
+      "reason": "Reason"
+    }
+  }
+}

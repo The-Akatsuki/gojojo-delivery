@@ -1,0 +1,108 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="orderBuyerDetails">
+      <h2 data-cy="orderBuyerDetailsDetailsHeading">
+        <span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.detail.title">Order Buyer Details</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.name">Name</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.mobile">Mobile</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.mobile }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.alternateMobile">Alternate Mobile</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.alternateMobile }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.email">Email</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.addressline1">Addressline 1</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.addressline1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.addressline2">Addressline 2</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.addressline2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.pincode">Pincode</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.pincode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.city">City</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.state">State</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.state }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.country">Country</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.country }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.companyName">Company Name</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.companyName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.isBillingSame">Is Billing Same</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.isBillingSame }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billAddressline1">Bill Addressline 1</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.billAddressline1 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billAddressline2">Bill Addressline 2</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.billAddressline2 }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billPincode">Bill Pincode</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.billPincode }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billCity">Bill City</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.billCity }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billState">Bill State</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.billState }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billCountry">Bill Country</span></dt>
+        <dd>
+          <span>{{ orderBuyerDetails.billCountry }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.order">Order</span></dt>
+        <dd>
+          <div *ngIf="orderBuyerDetails.order">
+            <a [routerLink]="['/order', orderBuyerDetails.order?.id, 'view']">{{ orderBuyerDetails.order?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order-buyer-details', orderBuyerDetails.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

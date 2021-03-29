@@ -1,0 +1,26 @@
+{
+  "gojojoDeliveryApp": {
+    "returnReason": {
+      "home": {
+        "title": "ReturnReasons",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Return Reason बनाएँ",
+        "createOrEditLabel": "Return Reason बनाएँ या संपादित करें",
+        "notFound": "No Return Reasons found"
+      },
+      "created": "एक नया Return Reason [identifier: {{ param }}] तैयार है",
+      "updated": "एक Return Reason [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Return Reason [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Return Reason [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Return Reason"
+      },
+      "id": "ID",
+      "comment": "Comment",
+      "image": "Image",
+      "label": "Label"
+    }
+  }
+}

@@ -1,0 +1,154 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="order">
+      <h2 data-cy="orderDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.order.detail.title">Order</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ order.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.orderId">Order Id</span></dt>
+        <dd>
+          <span>{{ order.orderId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.referenceId">Reference Id</span></dt>
+        <dd>
+          <span>{{ order.referenceId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.orderType">Order Type</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gojojoDeliveryApp.OrderType.' + order.orderType }}">{{ order.orderType }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.orderStatus">Order Status</span></dt>
+        <dd>
+          <span jhiTranslate="{{ 'gojojoDeliveryApp.OrderStatus.' + order.orderStatus }}">{{ order.orderStatus }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.orderDate">Order Date</span></dt>
+        <dd>
+          <span>{{ order.orderDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.channel">Channel</span></dt>
+        <dd>
+          <span>{{ order.channel }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.subtotal">Subtotal</span></dt>
+        <dd>
+          <span>{{ order.subtotal }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.hasShippingCharges">Has Shipping Charges</span></dt>
+        <dd>
+          <span>{{ order.hasShippingCharges }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.shipping">Shipping</span></dt>
+        <dd>
+          <span>{{ order.shipping }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.hasGiftwrapCharges">Has Giftwrap Charges</span></dt>
+        <dd>
+          <span>{{ order.hasGiftwrapCharges }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.giftwrap">Giftwrap</span></dt>
+        <dd>
+          <span>{{ order.giftwrap }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.hasTransactionCharges">Has Transaction Charges</span></dt>
+        <dd>
+          <span>{{ order.hasTransactionCharges }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.transaction">Transaction</span></dt>
+        <dd>
+          <span>{{ order.transaction }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.hasDiscount">Has Discount</span></dt>
+        <dd>
+          <span>{{ order.hasDiscount }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.discount">Discount</span></dt>
+        <dd>
+          <span>{{ order.discount }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.weight">Weight</span></dt>
+        <dd>
+          <span>{{ order.weight }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.weightCharges">Weight Charges</span></dt>
+        <dd>
+          <span>{{ order.weightCharges }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.excessWeightCharges">Excess Weight Charges</span></dt>
+        <dd>
+          <span>{{ order.excessWeightCharges }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.totalFreightCharges">Total Freight Charges</span></dt>
+        <dd>
+          <span>{{ order.totalFreightCharges }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.length">Length</span></dt>
+        <dd>
+          <span>{{ order.length }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.width">Width</span></dt>
+        <dd>
+          <span>{{ order.width }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.height">Height</span></dt>
+        <dd>
+          <span>{{ order.height }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.resellerName">Reseller Name</span></dt>
+        <dd>
+          <span>{{ order.resellerName }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.gstin">Gstin</span></dt>
+        <dd>
+          <span>{{ order.gstin }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.courier">Courier</span></dt>
+        <dd>
+          <span>{{ order.courier }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.awb">Awb</span></dt>
+        <dd>
+          <span>{{ order.awb }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.manifestId">Manifest Id</span></dt>
+        <dd>
+          <span>{{ order.manifestId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.product">Product</span></dt>
+        <dd>
+          <div *ngIf="order.product">
+            <a [routerLink]="['/product', order.product?.id, 'view']">{{ order.product?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.payment">Payment</span></dt>
+        <dd>
+          <div *ngIf="order.payment">
+            <a [routerLink]="['/payment-method', order.payment?.id, 'view']">{{ order.payment?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.pickupaddress">Pickupaddress</span></dt>
+        <dd>
+          <div *ngIf="order.pickupaddress">
+            <a [routerLink]="['/pickup-address', order.pickupaddress?.id, 'view']">{{ order.pickupaddress?.nickName }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="reasonEscalation">
+      <h2 data-cy="reasonEscalationDetailsHeading">
+        <span jhiTranslate="gojojoDeliveryApp.reasonEscalation.detail.title">Reason Escalation</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ reasonEscalation.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.reasonEscalation.title">Title</span></dt>
+        <dd>
+          <span>{{ reasonEscalation.title }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/reason-escalation', reasonEscalation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

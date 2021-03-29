@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="escalation">
+      <h2 data-cy="escalationDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.escalation.detail.title">Escalation</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ escalation.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.escalation.remark">Remark</span></dt>
+        <dd>
+          <span>{{ escalation.remark }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.escalation.reason">Reason</span></dt>
+        <dd>
+          <div *ngIf="escalation.reason">
+            <a [routerLink]="['/reason-escalation', escalation.reason?.id, 'view']">{{ escalation.reason?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/escalation', escalation.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

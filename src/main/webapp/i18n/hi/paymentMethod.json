@@ -1,0 +1,26 @@
+{
+  "gojojoDeliveryApp": {
+    "paymentMethod": {
+      "home": {
+        "title": "PaymentMethods",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Payment Method बनाएँ",
+        "createOrEditLabel": "Payment Method बनाएँ या संपादित करें",
+        "notFound": "No Payment Methods found"
+      },
+      "created": "एक नया Payment Method [identifier: {{ param }}] तैयार है",
+      "updated": "एक Payment Method [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Payment Method [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Payment Method [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Payment Method"
+      },
+      "id": "ID",
+      "name": "Name",
+      "isActive": "Is Active",
+      "order": "Order"
+    }
+  }
+}

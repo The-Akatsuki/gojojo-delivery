@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="ManifestHeading">
+    <span jhiTranslate="gojojoDeliveryApp.manifest.home.title">Manifests</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.manifest.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-manifest"
+        [routerLink]="['/manifest/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.manifest.home.createLabel"> Create a new Manifest </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="manifests?.length === 0">
+    <span jhiTranslate="gojojoDeliveryApp.manifest.home.notFound">No manifests found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="manifests && manifests.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.manifestId">Manifest Id</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.awb">Awb</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.awbAssignedDate">Awb Assigned Date</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.pickupException">Pickup Exception</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.remarks">Remarks</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.pickupReferenceNumber">Pickup Reference Number</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.courier">Courier</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.escalation">Escalation</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let manifest of manifests; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/manifest', manifest.id, 'view']">{{ manifest.id }}</a>
+          </td>
+          <td>{{ manifest.manifestId }}</td>
+          <td>{{ manifest.awb }}</td>
+          <td>{{ manifest.awbAssignedDate | formatMediumDatetime }}</td>
+          <td>{{ manifest.pickupException }}</td>
+          <td>{{ manifest.remarks }}</td>
+          <td>{{ manifest.pickupReferenceNumber }}</td>
+          <td>{{ manifest.status }}</td>
+          <td>
+            <div *ngIf="manifest.courier">
+              <a [routerLink]="['/courier-company', manifest.courier?.id, 'view']">{{ manifest.courier?.id }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="manifest.escalation">
+              <a [routerLink]="['/escalation', manifest.escalation?.id, 'view']">{{ manifest.escalation?.id }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/manifest', manifest.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/manifest', manifest.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(manifest)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

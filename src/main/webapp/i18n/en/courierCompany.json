@@ -1,0 +1,35 @@
+{
+  "gojojoDeliveryApp": {
+    "courierCompany": {
+      "home": {
+        "title": "Courier Companies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Courier Company",
+        "createOrEditLabel": "Create or edit a Courier Company",
+        "notFound": "No Courier Companies found"
+      },
+      "created": "A new Courier Company is created with identifier {{ param }}",
+      "updated": "A Courier Company is updated with identifier {{ param }}",
+      "deleted": "A Courier Company is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Courier Company {{ id }}?"
+      },
+      "detail": {
+        "title": "Courier Company"
+      },
+      "id": "ID",
+      "name": "Name",
+      "mobile": "Mobile",
+      "alternateMobile": "Alternate Mobile",
+      "email": "Email",
+      "addressline1": "Addressline 1",
+      "addressline2": "Addressline 2",
+      "pincode": "Pincode",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "image": "Image",
+      "manifest": "Manifest"
+    }
+  }
+}
