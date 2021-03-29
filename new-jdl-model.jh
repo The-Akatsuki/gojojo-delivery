@@ -1,0 +1,201 @@
+entity Order{
+	orderId String,
+    referenceId String,
+    orderType OrderType,
+    orderStatus OrderStatus,
+    orderDate Instant,
+    channel String,
+    subtotal Double,
+    hasShippingCharges Boolean,
+    shipping Double,
+    hasGiftwrapCharges Boolean,
+    giftwrap Double,
+    hasTransactionCharges Boolean,
+    transaction Double,
+    hasDiscount Boolean,
+    discount Double,
+    weight Float,
+    weightCharges Float,
+    excessWeightCharges Float,
+    totalFreightCharges Float,
+    length Float,
+    width Float,
+    height Float,
+    resellerName String,
+    gstin String,
+    courier String,
+    awb String,
+    manifestId String
+}
+
+entity Product{
+	name String,
+    sku String,
+    quantity Integer,
+    unitPrice Double,
+    taxRate Double,
+    hsn String,
+    discount Double,
+}
+
+entity PaymentMethod{
+	name String,
+    isActive Boolean
+}
+
+entity Category{
+	name String,
+    isActive Boolean
+}
+
+entity OrderBuyerDetail{
+	name String,
+    mobile String,
+    alternateMobile String,
+    email String,
+    addressline1 String,
+    addressline2 String,
+    pincode String,
+    city String,
+    state String,
+    country String,
+    companyName String,
+    isBillingSame Boolean,
+    billAddressline1 String,
+    billAddressline2 String,
+    billPincode String,
+    billCity String,
+    billState String,
+    billCountry String
+    
+}
+
+entity PinCodes{
+	pin String,
+    city String,
+    state String,
+    country String
+}
+
+entity PickupAddress{
+	nickName String,
+    mobile String,
+    alternateMobile String,
+    email String,
+    addressline1 String,
+    addressline2 String,
+    pincode String,
+    city String,
+    state String,
+    country String,
+    companyName String,
+    isMobileVerified Boolean,
+    otp String
+}
+
+entity Manifest{
+	manifestId String,
+    awb String,
+    awbAssignedDate Instant,
+    pickupException String,
+    remarks String,
+    pickupReferenceNumber String,
+    status String,
+}
+
+entity Escalation{
+	remark String
+}
+
+entity CourierCompany{
+	name String,
+    mobile String,
+    alternateMobile String,
+    email String,
+    addressline1 String,
+    addressline2 String,
+    pincode String,
+    city String,
+    state String,
+    country String,
+    image String
+}
+
+entity ReasonEscalation{
+	title String
+}
+
+
+entity ReturnReason{
+	comment String,
+    image String
+}
+
+entity ReturnLabel{
+	title String,
+}
+
+entity ShipmentActivity{
+	status String,
+    pincode String,
+    location String
+}
+
+entity Wallet{
+	usableBalance Double,
+	totalBalance Double,
+    balanceOnHold Double
+}
+
+entity Transaction{
+	category String,
+    credit Float,
+    debit Float,
+    finalBalance Float,
+    description String,
+    transactionType TransactionType,
+}
+
+enum TransactionType{
+	Recharge,OnHold,Shipping
+}
+
+enum OrderType{
+	ForwardOrder,ReturnOrder
+}
+
+enum OrderStatus{
+	Processing,ReadyToShip,Manifest,Return
+}
+
+relationship OneToOne{
+	OrderBuyerDetail{order} to Order{buyerDetails}
+}
+
+relationship OneToMany {
+	Category to Category{parent(name)}
+    Product to Category{category(name)}
+    Product to Order{product(name)}
+    PaymentMethod to Order{payment(name)}
+    PickupAddress to Order{pickupaddress(nickName)}
+    CourierCompany to Manifest{courier}
+    Escalation to Manifest{escalation}
+    ReasonEscalation to Escalation{reason}
+    ReturnLabel to ReturnReason{label(title)}
+    Order to ShipmentActivity{order(status)}
+    Order to Wallet{order(awb)}
+    Wallet to Transaction{wallet}
+   
+}
+
+
+// Set pagination options
+paginate Order,Category,PinCodes,Wallet,Transaction,ShipmentActivity,Product,CourierCompany,ReasonEscalation,ReturnLabel  with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+
+// Set an angular suffix
+// angularSuffix * with mySuffix
