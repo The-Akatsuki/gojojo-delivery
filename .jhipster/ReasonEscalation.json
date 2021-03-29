@@ -1,0 +1,27 @@
+{
+  "name": "ReasonEscalation",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "escalation",
+      "otherEntityRelationshipName": "reason",
+      "relationshipName": "escalation"
+    }
+  ],
+  "entityTableName": "reason_escalation",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143059"
+}

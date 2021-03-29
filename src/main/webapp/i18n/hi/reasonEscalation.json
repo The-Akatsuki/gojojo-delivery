@@ -1,0 +1,25 @@
+{
+  "gojojoDeliveryApp": {
+    "reasonEscalation": {
+      "home": {
+        "title": "ReasonEscalations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Reason Escalation बनाएँ",
+        "createOrEditLabel": "Reason Escalation बनाएँ या संपादित करें",
+        "notFound": "No Reason Escalations found"
+      },
+      "created": "एक नया Reason Escalation [identifier: {{ param }}] तैयार है",
+      "updated": "एक Reason Escalation [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Reason Escalation [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Reason Escalation [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Reason Escalation"
+      },
+      "id": "ID",
+      "title": "Title",
+      "escalation": "Escalation"
+    }
+  }
+}

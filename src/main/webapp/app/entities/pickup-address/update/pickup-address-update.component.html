@@ -1,0 +1,148 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-pickup-address-heading"
+        data-cy="PickupAddressCreateUpdateHeading"
+        jhiTranslate="gojojoDeliveryApp.pickupAddress.home.createOrEditLabel"
+      >
+        Create or edit a Pickup Address
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.nickName" for="field_nickName">Nick Name</label>
+          <input type="text" class="form-control" name="nickName" id="field_nickName" data-cy="nickName" formControlName="nickName" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.mobile" for="field_mobile">Mobile</label>
+          <input type="text" class="form-control" name="mobile" id="field_mobile" data-cy="mobile" formControlName="mobile" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.alternateMobile" for="field_alternateMobile"
+            >Alternate Mobile</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="alternateMobile"
+            id="field_alternateMobile"
+            data-cy="alternateMobile"
+            formControlName="alternateMobile"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.addressline1" for="field_addressline1"
+            >Addressline 1</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="addressline1"
+            id="field_addressline1"
+            data-cy="addressline1"
+            formControlName="addressline1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.addressline2" for="field_addressline2"
+            >Addressline 2</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="addressline2"
+            id="field_addressline2"
+            data-cy="addressline2"
+            formControlName="addressline2"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.pincode" for="field_pincode">Pincode</label>
+          <input type="text" class="form-control" name="pincode" id="field_pincode" data-cy="pincode" formControlName="pincode" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.city" for="field_city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.state" for="field_state">State</label>
+          <input type="text" class="form-control" name="state" id="field_state" data-cy="state" formControlName="state" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.country" for="field_country">Country</label>
+          <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.companyName" for="field_companyName"
+            >Company Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="companyName"
+            id="field_companyName"
+            data-cy="companyName"
+            formControlName="companyName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.isMobileVerified" for="field_isMobileVerified"
+            >Is Mobile Verified</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isMobileVerified"
+            id="field_isMobileVerified"
+            data-cy="isMobileVerified"
+            formControlName="isMobileVerified"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.pickupAddress.otp" for="field_otp">Otp</label>
+          <input type="text" class="form-control" name="otp" id="field_otp" data-cy="otp" formControlName="otp" />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

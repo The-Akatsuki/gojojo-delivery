@@ -1,0 +1,80 @@
+<div>
+  <h2 id="page-heading" data-cy="PaymentMethodHeading">
+    <span jhiTranslate="gojojoDeliveryApp.paymentMethod.home.title">Payment Methods</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.paymentMethod.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-payment-method"
+        [routerLink]="['/payment-method/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.paymentMethod.home.createLabel"> Create a new Payment Method </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="paymentMethods?.length === 0">
+    <span jhiTranslate="gojojoDeliveryApp.paymentMethod.home.notFound">No paymentMethods found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="paymentMethods && paymentMethods.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.paymentMethod.name">Name</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.paymentMethod.isActive">Is Active</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let paymentMethod of paymentMethods; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/payment-method', paymentMethod.id, 'view']">{{ paymentMethod.id }}</a>
+          </td>
+          <td>{{ paymentMethod.name }}</td>
+          <td>{{ paymentMethod.isActive }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/payment-method', paymentMethod.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/payment-method', paymentMethod.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(paymentMethod)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

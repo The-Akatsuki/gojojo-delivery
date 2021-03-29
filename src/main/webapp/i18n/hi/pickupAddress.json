@@ -1,0 +1,37 @@
+{
+  "gojojoDeliveryApp": {
+    "pickupAddress": {
+      "home": {
+        "title": "PickupAddresses",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Pickup Address बनाएँ",
+        "createOrEditLabel": "Pickup Address बनाएँ या संपादित करें",
+        "notFound": "No Pickup Addresses found"
+      },
+      "created": "एक नया Pickup Address [identifier: {{ param }}] तैयार है",
+      "updated": "एक Pickup Address [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Pickup Address [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Pickup Address [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Pickup Address"
+      },
+      "id": "ID",
+      "nickName": "Nick Name",
+      "mobile": "Mobile",
+      "alternateMobile": "Alternate Mobile",
+      "email": "Email",
+      "addressline1": "Addressline 1",
+      "addressline2": "Addressline 2",
+      "pincode": "Pincode",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "companyName": "Company Name",
+      "isMobileVerified": "Is Mobile Verified",
+      "otp": "Otp",
+      "order": "Order"
+    }
+  }
+}

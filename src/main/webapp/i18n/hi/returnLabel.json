@@ -1,0 +1,25 @@
+{
+  "gojojoDeliveryApp": {
+    "returnLabel": {
+      "home": {
+        "title": "ReturnLabels",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Return Label बनाएँ",
+        "createOrEditLabel": "Return Label बनाएँ या संपादित करें",
+        "notFound": "No Return Labels found"
+      },
+      "created": "एक नया Return Label [identifier: {{ param }}] तैयार है",
+      "updated": "एक Return Label [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Return Label [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Return Label [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Return Label"
+      },
+      "id": "ID",
+      "title": "Title",
+      "returnReason": "Return Reason"
+    }
+  }
+}

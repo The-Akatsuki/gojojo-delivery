@@ -1,0 +1,10 @@
+{
+  "gojojoDeliveryApp": {
+    "TransactionType": {
+      "null": "",
+      "Recharge": "Recharge",
+      "OnHold": "OnHold",
+      "Shipping": "Shipping"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "gojojoDeliveryApp": {
+    "OrderType": {
+      "null": "",
+      "ForwardOrder": "ForwardOrder",
+      "ReturnOrder": "ReturnOrder"
+    }
+  }
+}

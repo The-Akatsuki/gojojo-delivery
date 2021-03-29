@@ -1,0 +1,48 @@
+{
+  "name": "Transaction",
+  "fields": [
+    {
+      "fieldName": "category",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "credit",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "debit",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "finalBalance",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "transactionType",
+      "fieldType": "TransactionType",
+      "fieldValues": "Recharge,OnHold,Shipping"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "wallet",
+      "otherEntityRelationshipName": "transaction",
+      "relationshipName": "wallet"
+    }
+  ],
+  "entityTableName": "transaction",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143104"
+}

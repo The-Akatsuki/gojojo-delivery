@@ -1,0 +1,215 @@
+<div>
+  <h2 id="page-heading" data-cy="OrderHeading">
+    <span jhiTranslate="gojojoDeliveryApp.order.home.title">Orders</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadPage()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.order.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-order"
+        [routerLink]="['/order/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.order.home.createLabel"> Create a new Order </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="orders?.length === 0">
+    <span jhiTranslate="gojojoDeliveryApp.order.home.notFound">No orders found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="orders && orders.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+          <th scope="col" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="orderId">
+            <span jhiTranslate="gojojoDeliveryApp.order.orderId">Order Id</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="referenceId">
+            <span jhiTranslate="gojojoDeliveryApp.order.referenceId">Reference Id</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="orderType">
+            <span jhiTranslate="gojojoDeliveryApp.order.orderType">Order Type</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="orderStatus">
+            <span jhiTranslate="gojojoDeliveryApp.order.orderStatus">Order Status</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="orderDate">
+            <span jhiTranslate="gojojoDeliveryApp.order.orderDate">Order Date</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="channel">
+            <span jhiTranslate="gojojoDeliveryApp.order.channel">Channel</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="subtotal">
+            <span jhiTranslate="gojojoDeliveryApp.order.subtotal">Subtotal</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="hasShippingCharges">
+            <span jhiTranslate="gojojoDeliveryApp.order.hasShippingCharges">Has Shipping Charges</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="shipping">
+            <span jhiTranslate="gojojoDeliveryApp.order.shipping">Shipping</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="hasGiftwrapCharges">
+            <span jhiTranslate="gojojoDeliveryApp.order.hasGiftwrapCharges">Has Giftwrap Charges</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="giftwrap">
+            <span jhiTranslate="gojojoDeliveryApp.order.giftwrap">Giftwrap</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="hasTransactionCharges">
+            <span jhiTranslate="gojojoDeliveryApp.order.hasTransactionCharges">Has Transaction Charges</span>
+            <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="transaction">
+            <span jhiTranslate="gojojoDeliveryApp.order.transaction">Transaction</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="hasDiscount">
+            <span jhiTranslate="gojojoDeliveryApp.order.hasDiscount">Has Discount</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="discount">
+            <span jhiTranslate="gojojoDeliveryApp.order.discount">Discount</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="weight">
+            <span jhiTranslate="gojojoDeliveryApp.order.weight">Weight</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="weightCharges">
+            <span jhiTranslate="gojojoDeliveryApp.order.weightCharges">Weight Charges</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="excessWeightCharges">
+            <span jhiTranslate="gojojoDeliveryApp.order.excessWeightCharges">Excess Weight Charges</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="totalFreightCharges">
+            <span jhiTranslate="gojojoDeliveryApp.order.totalFreightCharges">Total Freight Charges</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="length">
+            <span jhiTranslate="gojojoDeliveryApp.order.length">Length</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="width">
+            <span jhiTranslate="gojojoDeliveryApp.order.width">Width</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="height">
+            <span jhiTranslate="gojojoDeliveryApp.order.height">Height</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="resellerName">
+            <span jhiTranslate="gojojoDeliveryApp.order.resellerName">Reseller Name</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="gstin">
+            <span jhiTranslate="gojojoDeliveryApp.order.gstin">Gstin</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="courier">
+            <span jhiTranslate="gojojoDeliveryApp.order.courier">Courier</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="awb"><span jhiTranslate="gojojoDeliveryApp.order.awb">Awb</span> <fa-icon icon="sort"></fa-icon></th>
+          <th scope="col" jhiSortBy="manifestId">
+            <span jhiTranslate="gojojoDeliveryApp.order.manifestId">Manifest Id</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="product.name">
+            <span jhiTranslate="gojojoDeliveryApp.order.product">Product</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="payment.name">
+            <span jhiTranslate="gojojoDeliveryApp.order.payment">Payment</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="pickupaddress.nickName">
+            <span jhiTranslate="gojojoDeliveryApp.order.pickupaddress">Pickupaddress</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/order', order.id, 'view']">{{ order.id }}</a>
+          </td>
+          <td>{{ order.orderId }}</td>
+          <td>{{ order.referenceId }}</td>
+          <td jhiTranslate="{{ 'gojojoDeliveryApp.OrderType.' + order.orderType }}">{{ order.orderType }}</td>
+          <td jhiTranslate="{{ 'gojojoDeliveryApp.OrderStatus.' + order.orderStatus }}">{{ order.orderStatus }}</td>
+          <td>{{ order.orderDate | formatMediumDatetime }}</td>
+          <td>{{ order.channel }}</td>
+          <td>{{ order.subtotal }}</td>
+          <td>{{ order.hasShippingCharges }}</td>
+          <td>{{ order.shipping }}</td>
+          <td>{{ order.hasGiftwrapCharges }}</td>
+          <td>{{ order.giftwrap }}</td>
+          <td>{{ order.hasTransactionCharges }}</td>
+          <td>{{ order.transaction }}</td>
+          <td>{{ order.hasDiscount }}</td>
+          <td>{{ order.discount }}</td>
+          <td>{{ order.weight }}</td>
+          <td>{{ order.weightCharges }}</td>
+          <td>{{ order.excessWeightCharges }}</td>
+          <td>{{ order.totalFreightCharges }}</td>
+          <td>{{ order.length }}</td>
+          <td>{{ order.width }}</td>
+          <td>{{ order.height }}</td>
+          <td>{{ order.resellerName }}</td>
+          <td>{{ order.gstin }}</td>
+          <td>{{ order.courier }}</td>
+          <td>{{ order.awb }}</td>
+          <td>{{ order.manifestId }}</td>
+          <td>
+            <div *ngIf="order.product">
+              <a [routerLink]="['/product', order.product?.id, 'view']">{{ order.product?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="order.payment">
+              <a [routerLink]="['/payment-method', order.payment?.id, 'view']">{{ order.payment?.name }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="order.pickupaddress">
+              <a [routerLink]="['/pickup-address', order.pickupaddress?.id, 'view']">{{ order.pickupaddress?.nickName }}</a>
+            </div>
+          </td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/order', order.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/order', order.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(order)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="orders && orders.length > 0">
+    <div class="row justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="row justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [(page)]="ngbPaginationPage"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="loadPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="wallet">
+      <h2 data-cy="walletDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.wallet.detail.title">Wallet</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ wallet.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.wallet.usableBalance">Usable Balance</span></dt>
+        <dd>
+          <span>{{ wallet.usableBalance }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.wallet.totalBalance">Total Balance</span></dt>
+        <dd>
+          <span>{{ wallet.totalBalance }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.wallet.balanceOnHold">Balance On Hold</span></dt>
+        <dd>
+          <span>{{ wallet.balanceOnHold }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.wallet.order">Order</span></dt>
+        <dd>
+          <div *ngIf="wallet.order">
+            <a [routerLink]="['/order', wallet.order?.id, 'view']">{{ wallet.order?.awb }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/wallet', wallet.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

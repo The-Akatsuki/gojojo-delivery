@@ -7,6 +7,22 @@
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "entities": {
         "main": "Entities",
+        "order": "Order",
+        "product": "Product",
+        "paymentMethod": "Payment Method",
+        "category": "Category",
+        "orderBuyerDetails": "Order Buyer Details",
+        "pinCodes": "Pin Codes",
+        "pickupAddress": "Pickup Address",
+        "manifest": "Manifest",
+        "escalation": "Escalation",
+        "courierCompany": "Courier Company",
+        "reasonEscalation": "Reason Escalation",
+        "returnReason": "Return Reason",
+        "returnLabel": "Return Label",
+        "shipmentActivity": "Shipment Activity",
+        "wallet": "Wallet",
+        "transaction": "Transaction",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

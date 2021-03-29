@@ -1,0 +1,27 @@
+{
+  "name": "ReturnLabel",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "returnReason",
+      "otherEntityRelationshipName": "label",
+      "relationshipName": "returnReason"
+    }
+  ],
+  "entityTableName": "return_label",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143101"
+}

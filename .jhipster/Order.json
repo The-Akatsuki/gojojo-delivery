@@ -1,0 +1,167 @@
+{
+  "name": "Order",
+  "fields": [
+    {
+      "fieldName": "orderId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "referenceId",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "orderType",
+      "fieldType": "OrderType",
+      "fieldValues": "ForwardOrder,ReturnOrder"
+    },
+    {
+      "fieldName": "orderStatus",
+      "fieldType": "OrderStatus",
+      "fieldValues": "Processing,ReadyToShip,Manifest,Return"
+    },
+    {
+      "fieldName": "orderDate",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "channel",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "subtotal",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "hasShippingCharges",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "shipping",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "hasGiftwrapCharges",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "giftwrap",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "hasTransactionCharges",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "transaction",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "hasDiscount",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "discount",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "weight",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "weightCharges",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "excessWeightCharges",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "totalFreightCharges",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "length",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "width",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "height",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "resellerName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "gstin",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "courier",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "awb",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "manifestId",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "shipmentActivity",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "shipmentActivity"
+    },
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "wallet",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "wallet"
+    },
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "orderBuyerDetails",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "buyerDetails",
+      "ownerSide": false
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "product",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "paymentMethod",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "payment",
+      "otherEntityField": "name"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "pickupAddress",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "pickupaddress",
+      "otherEntityField": "nickName"
+    }
+  ],
+  "entityTableName": "jhi_order",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143049"
+}

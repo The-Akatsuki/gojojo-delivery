@@ -1,0 +1,35 @@
+{
+  "gojojoDeliveryApp": {
+    "courierCompany": {
+      "home": {
+        "title": "CourierCompanies",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Courier Company बनाएँ",
+        "createOrEditLabel": "Courier Company बनाएँ या संपादित करें",
+        "notFound": "No Courier Companies found"
+      },
+      "created": "एक नया Courier Company [identifier: {{ param }}] तैयार है",
+      "updated": "एक Courier Company [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Courier Company [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Courier Company [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Courier Company"
+      },
+      "id": "ID",
+      "name": "Name",
+      "mobile": "Mobile",
+      "alternateMobile": "Alternate Mobile",
+      "email": "Email",
+      "addressline1": "Addressline 1",
+      "addressline2": "Addressline 2",
+      "pincode": "Pincode",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "image": "Image",
+      "manifest": "Manifest"
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "gojojoDeliveryApp": {
+    "orderBuyerDetails": {
+      "home": {
+        "title": "Order Buyer Details",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Order Buyer Details",
+        "createOrEditLabel": "Create or edit a Order Buyer Details",
+        "notFound": "No Order Buyer Details found"
+      },
+      "created": "A new Order Buyer Details is created with identifier {{ param }}",
+      "updated": "A Order Buyer Details is updated with identifier {{ param }}",
+      "deleted": "A Order Buyer Details is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Order Buyer Details {{ id }}?"
+      },
+      "detail": {
+        "title": "Order Buyer Details"
+      },
+      "id": "ID",
+      "name": "Name",
+      "mobile": "Mobile",
+      "alternateMobile": "Alternate Mobile",
+      "email": "Email",
+      "addressline1": "Addressline 1",
+      "addressline2": "Addressline 2",
+      "pincode": "Pincode",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "companyName": "Company Name",
+      "isBillingSame": "Is Billing Same",
+      "billAddressline1": "Bill Addressline 1",
+      "billAddressline2": "Bill Addressline 2",
+      "billPincode": "Bill Pincode",
+      "billCity": "Bill City",
+      "billState": "Bill State",
+      "billCountry": "Bill Country",
+      "order": "Order"
+    }
+  }
+}

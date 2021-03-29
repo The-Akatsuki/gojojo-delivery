@@ -15,7 +15,32 @@
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143049_added_entity_Order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143050_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143051_added_entity_PaymentMethod.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143052_added_entity_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143053_added_entity_OrderBuyerDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143054_added_entity_PinCodes.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143055_added_entity_PickupAddress.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143056_added_entity_Manifest.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143057_added_entity_Escalation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143058_added_entity_CourierCompany.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143059_added_entity_ReasonEscalation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143100_added_entity_ReturnReason.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143101_added_entity_ReturnLabel.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143102_added_entity_ShipmentActivity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143103_added_entity_Wallet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143104_added_entity_Transaction.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20210329143049_added_entity_constraints_Order.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143052_added_entity_constraints_Category.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143053_added_entity_constraints_OrderBuyerDetails.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143056_added_entity_constraints_Manifest.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143057_added_entity_constraints_Escalation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143100_added_entity_constraints_ReturnReason.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143102_added_entity_constraints_ShipmentActivity.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143103_added_entity_constraints_Wallet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20210329143104_added_entity_constraints_Transaction.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <!-- jhipster-needle-liquibase-add-incremental-changelog - JHipster will add incremental liquibase changelogs here -->
 </databaseChangeLog>

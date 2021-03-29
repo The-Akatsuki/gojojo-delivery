@@ -1,0 +1,96 @@
+{
+  "name": "OrderBuyerDetails",
+  "fields": [
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "mobile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "alternateMobile",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressline1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "addressline2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pincode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "city",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "state",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "country",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "companyName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isBillingSame",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "billAddressline1",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billAddressline2",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billPincode",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billCity",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billState",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "billCountry",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "buyerDetails",
+      "relationshipName": "order",
+      "ownerSide": true
+    }
+  ],
+  "entityTableName": "order_buyer_details",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143053"
+}

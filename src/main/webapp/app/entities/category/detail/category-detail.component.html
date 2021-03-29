@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="category">
+      <h2 data-cy="categoryDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.category.detail.title">Category</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ category.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.category.name">Name</span></dt>
+        <dd>
+          <span>{{ category.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.category.isActive">Is Active</span></dt>
+        <dd>
+          <span>{{ category.isActive }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.category.parent">Parent</span></dt>
+        <dd>
+          <div *ngIf="category.parent">
+            <a [routerLink]="['/category', category.parent?.id, 'view']">{{ category.parent?.name }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.category.category">Category</span></dt>
+        <dd>
+          <div *ngIf="category.category">
+            <a [routerLink]="['/product', category.category?.id, 'view']">{{ category.category?.name }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/category', category.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

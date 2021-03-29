@@ -1,0 +1,333 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-order-heading" data-cy="OrderCreateUpdateHeading" jhiTranslate="gojojoDeliveryApp.order.home.createOrEditLabel">
+        Create or edit a Order
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.orderId" for="field_orderId">Order Id</label>
+          <input type="text" class="form-control" name="orderId" id="field_orderId" data-cy="orderId" formControlName="orderId" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.referenceId" for="field_referenceId">Reference Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="referenceId"
+            id="field_referenceId"
+            data-cy="referenceId"
+            formControlName="referenceId"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.orderType" for="field_orderType">Order Type</label>
+          <select class="form-control" name="orderType" formControlName="orderType" id="field_orderType" data-cy="orderType">
+            <option [ngValue]="null">{{ 'gojojoDeliveryApp.OrderType.null' | translate }}</option>
+            <option value="ForwardOrder">{{ 'gojojoDeliveryApp.OrderType.ForwardOrder' | translate }}</option>
+            <option value="ReturnOrder">{{ 'gojojoDeliveryApp.OrderType.ReturnOrder' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.orderStatus" for="field_orderStatus">Order Status</label>
+          <select class="form-control" name="orderStatus" formControlName="orderStatus" id="field_orderStatus" data-cy="orderStatus">
+            <option [ngValue]="null">{{ 'gojojoDeliveryApp.OrderStatus.null' | translate }}</option>
+            <option value="Processing">{{ 'gojojoDeliveryApp.OrderStatus.Processing' | translate }}</option>
+            <option value="ReadyToShip">{{ 'gojojoDeliveryApp.OrderStatus.ReadyToShip' | translate }}</option>
+            <option value="Manifest">{{ 'gojojoDeliveryApp.OrderStatus.Manifest' | translate }}</option>
+            <option value="Return">{{ 'gojojoDeliveryApp.OrderStatus.Return' | translate }}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.orderDate" for="field_orderDate">Order Date</label>
+          <div class="d-flex">
+            <input
+              id="field_orderDate"
+              data-cy="orderDate"
+              type="datetime-local"
+              class="form-control"
+              name="orderDate"
+              formControlName="orderDate"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.channel" for="field_channel">Channel</label>
+          <input type="text" class="form-control" name="channel" id="field_channel" data-cy="channel" formControlName="channel" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.subtotal" for="field_subtotal">Subtotal</label>
+          <input type="number" class="form-control" name="subtotal" id="field_subtotal" data-cy="subtotal" formControlName="subtotal" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.hasShippingCharges" for="field_hasShippingCharges"
+            >Has Shipping Charges</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="hasShippingCharges"
+            id="field_hasShippingCharges"
+            data-cy="hasShippingCharges"
+            formControlName="hasShippingCharges"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.shipping" for="field_shipping">Shipping</label>
+          <input type="number" class="form-control" name="shipping" id="field_shipping" data-cy="shipping" formControlName="shipping" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.hasGiftwrapCharges" for="field_hasGiftwrapCharges"
+            >Has Giftwrap Charges</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="hasGiftwrapCharges"
+            id="field_hasGiftwrapCharges"
+            data-cy="hasGiftwrapCharges"
+            formControlName="hasGiftwrapCharges"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.giftwrap" for="field_giftwrap">Giftwrap</label>
+          <input type="number" class="form-control" name="giftwrap" id="field_giftwrap" data-cy="giftwrap" formControlName="giftwrap" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.hasTransactionCharges" for="field_hasTransactionCharges"
+            >Has Transaction Charges</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="hasTransactionCharges"
+            id="field_hasTransactionCharges"
+            data-cy="hasTransactionCharges"
+            formControlName="hasTransactionCharges"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.transaction" for="field_transaction">Transaction</label>
+          <input
+            type="number"
+            class="form-control"
+            name="transaction"
+            id="field_transaction"
+            data-cy="transaction"
+            formControlName="transaction"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.hasDiscount" for="field_hasDiscount">Has Discount</label>
+          <input
+            type="checkbox"
+            class="form-check"
+            name="hasDiscount"
+            id="field_hasDiscount"
+            data-cy="hasDiscount"
+            formControlName="hasDiscount"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.discount" for="field_discount">Discount</label>
+          <input type="number" class="form-control" name="discount" id="field_discount" data-cy="discount" formControlName="discount" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.weight" for="field_weight">Weight</label>
+          <input type="number" class="form-control" name="weight" id="field_weight" data-cy="weight" formControlName="weight" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.weightCharges" for="field_weightCharges"
+            >Weight Charges</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="weightCharges"
+            id="field_weightCharges"
+            data-cy="weightCharges"
+            formControlName="weightCharges"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.excessWeightCharges" for="field_excessWeightCharges"
+            >Excess Weight Charges</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="excessWeightCharges"
+            id="field_excessWeightCharges"
+            data-cy="excessWeightCharges"
+            formControlName="excessWeightCharges"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.totalFreightCharges" for="field_totalFreightCharges"
+            >Total Freight Charges</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalFreightCharges"
+            id="field_totalFreightCharges"
+            data-cy="totalFreightCharges"
+            formControlName="totalFreightCharges"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.length" for="field_length">Length</label>
+          <input type="number" class="form-control" name="length" id="field_length" data-cy="length" formControlName="length" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.width" for="field_width">Width</label>
+          <input type="number" class="form-control" name="width" id="field_width" data-cy="width" formControlName="width" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.height" for="field_height">Height</label>
+          <input type="number" class="form-control" name="height" id="field_height" data-cy="height" formControlName="height" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.resellerName" for="field_resellerName"
+            >Reseller Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="resellerName"
+            id="field_resellerName"
+            data-cy="resellerName"
+            formControlName="resellerName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.gstin" for="field_gstin">Gstin</label>
+          <input type="text" class="form-control" name="gstin" id="field_gstin" data-cy="gstin" formControlName="gstin" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.courier" for="field_courier">Courier</label>
+          <input type="text" class="form-control" name="courier" id="field_courier" data-cy="courier" formControlName="courier" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.awb" for="field_awb">Awb</label>
+          <input type="text" class="form-control" name="awb" id="field_awb" data-cy="awb" formControlName="awb" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.manifestId" for="field_manifestId">Manifest Id</label>
+          <input
+            type="text"
+            class="form-control"
+            name="manifestId"
+            id="field_manifestId"
+            data-cy="manifestId"
+            formControlName="manifestId"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.product" for="field_product">Product</label>
+          <select class="form-control" id="field_product" data-cy="product" name="product" formControlName="product">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="productOption.id === editForm.get('product')!.value?.id ? editForm.get('product')!.value : productOption"
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.payment" for="field_payment">Payment</label>
+          <select class="form-control" id="field_payment" data-cy="payment" name="payment" formControlName="payment">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                paymentMethodOption.id === editForm.get('payment')!.value?.id ? editForm.get('payment')!.value : paymentMethodOption
+              "
+              *ngFor="let paymentMethodOption of paymentMethodsSharedCollection; trackBy: trackPaymentMethodById"
+            >
+              {{ paymentMethodOption.name }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.pickupaddress" for="field_pickupaddress"
+            >Pickupaddress</label
+          >
+          <select
+            class="form-control"
+            id="field_pickupaddress"
+            data-cy="pickupaddress"
+            name="pickupaddress"
+            formControlName="pickupaddress"
+          >
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="
+                pickupAddressOption.id === editForm.get('pickupaddress')!.value?.id
+                  ? editForm.get('pickupaddress')!.value
+                  : pickupAddressOption
+              "
+              *ngFor="let pickupAddressOption of pickupAddressesSharedCollection; trackBy: trackPickupAddressById"
+            >
+              {{ pickupAddressOption.nickName }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

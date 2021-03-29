@@ -1,0 +1,42 @@
+{
+  "gojojoDeliveryApp": {
+    "orderBuyerDetails": {
+      "home": {
+        "title": "OrderBuyerDetails",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "नया Order Buyer Details बनाएँ",
+        "createOrEditLabel": "Order Buyer Details बनाएँ या संपादित करें",
+        "notFound": "No Order Buyer Details found"
+      },
+      "created": "एक नया Order Buyer Details [identifier: {{ param }}] तैयार है",
+      "updated": "एक Order Buyer Details [identifier: {{ param }}] का अद्यतन हुआ है",
+      "deleted": "Order Buyer Details [identifier: {{ param }}] हटा दिया है",
+      "delete": {
+        "question": "Order Buyer Details [id: {{ id }}] हटाने की पुष्टि करें"
+      },
+      "detail": {
+        "title": "Order Buyer Details"
+      },
+      "id": "ID",
+      "name": "Name",
+      "mobile": "Mobile",
+      "alternateMobile": "Alternate Mobile",
+      "email": "Email",
+      "addressline1": "Addressline 1",
+      "addressline2": "Addressline 2",
+      "pincode": "Pincode",
+      "city": "City",
+      "state": "State",
+      "country": "Country",
+      "companyName": "Company Name",
+      "isBillingSame": "Is Billing Same",
+      "billAddressline1": "Bill Addressline 1",
+      "billAddressline2": "Bill Addressline 2",
+      "billPincode": "Bill Pincode",
+      "billCity": "Bill City",
+      "billState": "Bill State",
+      "billCountry": "Bill Country",
+      "order": "Order"
+    }
+  }
+}

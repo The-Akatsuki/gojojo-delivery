@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="pinCodes">
+      <h2 data-cy="pinCodesDetailsHeading"><span jhiTranslate="gojojoDeliveryApp.pinCodes.detail.title">Pin Codes</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ pinCodes.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pinCodes.pin">Pin</span></dt>
+        <dd>
+          <span>{{ pinCodes.pin }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pinCodes.city">City</span></dt>
+        <dd>
+          <span>{{ pinCodes.city }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pinCodes.state">State</span></dt>
+        <dd>
+          <span>{{ pinCodes.state }}</span>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.pinCodes.country">Country</span></dt>
+        <dd>
+          <span>{{ pinCodes.country }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/pin-codes', pinCodes.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

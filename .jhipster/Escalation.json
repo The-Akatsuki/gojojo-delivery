@@ -1,0 +1,33 @@
+{
+  "name": "Escalation",
+  "fields": [
+    {
+      "fieldName": "remark",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "manifest",
+      "otherEntityRelationshipName": "escalation",
+      "relationshipName": "manifest"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "reasonEscalation",
+      "otherEntityRelationshipName": "escalation",
+      "relationshipName": "reason"
+    }
+  ],
+  "entityTableName": "escalation",
+  "dto": "no",
+  "pagination": "no",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143057"
+}

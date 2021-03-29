@@ -1,0 +1,56 @@
+{
+  "gojojoDeliveryApp": {
+    "order": {
+      "home": {
+        "title": "Orders",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Order",
+        "createOrEditLabel": "Create or edit a Order",
+        "notFound": "No Orders found"
+      },
+      "created": "A new Order is created with identifier {{ param }}",
+      "updated": "A Order is updated with identifier {{ param }}",
+      "deleted": "A Order is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Order {{ id }}?"
+      },
+      "detail": {
+        "title": "Order"
+      },
+      "id": "ID",
+      "orderId": "Order Id",
+      "referenceId": "Reference Id",
+      "orderType": "Order Type",
+      "orderStatus": "Order Status",
+      "orderDate": "Order Date",
+      "channel": "Channel",
+      "subtotal": "Subtotal",
+      "hasShippingCharges": "Has Shipping Charges",
+      "shipping": "Shipping",
+      "hasGiftwrapCharges": "Has Giftwrap Charges",
+      "giftwrap": "Giftwrap",
+      "hasTransactionCharges": "Has Transaction Charges",
+      "transaction": "Transaction",
+      "hasDiscount": "Has Discount",
+      "discount": "Discount",
+      "weight": "Weight",
+      "weightCharges": "Weight Charges",
+      "excessWeightCharges": "Excess Weight Charges",
+      "totalFreightCharges": "Total Freight Charges",
+      "length": "Length",
+      "width": "Width",
+      "height": "Height",
+      "resellerName": "Reseller Name",
+      "gstin": "Gstin",
+      "courier": "Courier",
+      "awb": "Awb",
+      "manifestId": "Manifest Id",
+      "shipmentActivity": "Shipment Activity",
+      "wallet": "Wallet",
+      "buyerDetails": "Buyer Details",
+      "product": "Product",
+      "payment": "Payment",
+      "pickupaddress": "Pickupaddress"
+    }
+  }
+}

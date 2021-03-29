@@ -1,0 +1,102 @@
+<div>
+  <h2 id="page-heading" data-cy="PickupAddressHeading">
+    <span jhiTranslate="gojojoDeliveryApp.pickupAddress.home.title">Pickup Addresses</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.pickupAddress.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-pickup-address"
+        [routerLink]="['/pickup-address/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gojojoDeliveryApp.pickupAddress.home.createLabel"> Create a new Pickup Address </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="pickupAddresses?.length === 0">
+    <span jhiTranslate="gojojoDeliveryApp.pickupAddress.home.notFound">No pickupAddresses found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="pickupAddresses && pickupAddresses.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.nickName">Nick Name</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.mobile">Mobile</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.alternateMobile">Alternate Mobile</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.email">Email</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.addressline1">Addressline 1</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.addressline2">Addressline 2</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.pincode">Pincode</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.city">City</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.state">State</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.country">Country</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.companyName">Company Name</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.isMobileVerified">Is Mobile Verified</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.pickupAddress.otp">Otp</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pickupAddress of pickupAddresses; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/pickup-address', pickupAddress.id, 'view']">{{ pickupAddress.id }}</a>
+          </td>
+          <td>{{ pickupAddress.nickName }}</td>
+          <td>{{ pickupAddress.mobile }}</td>
+          <td>{{ pickupAddress.alternateMobile }}</td>
+          <td>{{ pickupAddress.email }}</td>
+          <td>{{ pickupAddress.addressline1 }}</td>
+          <td>{{ pickupAddress.addressline2 }}</td>
+          <td>{{ pickupAddress.pincode }}</td>
+          <td>{{ pickupAddress.city }}</td>
+          <td>{{ pickupAddress.state }}</td>
+          <td>{{ pickupAddress.country }}</td>
+          <td>{{ pickupAddress.companyName }}</td>
+          <td>{{ pickupAddress.isMobileVerified }}</td>
+          <td>{{ pickupAddress.otp }}</td>
+          <td class="text-right">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/pickup-address', pickupAddress.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/pickup-address', pickupAddress.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(pickupAddress)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

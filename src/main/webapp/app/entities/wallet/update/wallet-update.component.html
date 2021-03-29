@@ -1,0 +1,89 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-wallet-heading" data-cy="WalletCreateUpdateHeading" jhiTranslate="gojojoDeliveryApp.wallet.home.createOrEditLabel">
+        Create or edit a Wallet
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.wallet.usableBalance" for="field_usableBalance"
+            >Usable Balance</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="usableBalance"
+            id="field_usableBalance"
+            data-cy="usableBalance"
+            formControlName="usableBalance"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.wallet.totalBalance" for="field_totalBalance"
+            >Total Balance</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="totalBalance"
+            id="field_totalBalance"
+            data-cy="totalBalance"
+            formControlName="totalBalance"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.wallet.balanceOnHold" for="field_balanceOnHold"
+            >Balance On Hold</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="balanceOnHold"
+            id="field_balanceOnHold"
+            data-cy="balanceOnHold"
+            formControlName="balanceOnHold"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.wallet.order" for="field_order">Order</label>
+          <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="orderOption.id === editForm.get('order')!.value?.id ? editForm.get('order')!.value : orderOption"
+              *ngFor="let orderOption of ordersSharedCollection; trackBy: trackOrderById"
+            >
+              {{ orderOption.awb }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+{
+  "name": "Wallet",
+  "fields": [
+    {
+      "fieldName": "usableBalance",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "totalBalance",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "balanceOnHold",
+      "fieldType": "Double"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "transaction",
+      "otherEntityRelationshipName": "wallet",
+      "relationshipName": "transaction"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "wallet",
+      "relationshipName": "order",
+      "otherEntityField": "awb"
+    }
+  ],
+  "entityTableName": "wallet",
+  "dto": "no",
+  "pagination": "pagination",
+  "service": "no",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "applications": "*",
+  "changelogDate": "20210329143103"
+}

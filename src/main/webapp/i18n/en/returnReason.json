@@ -1,0 +1,26 @@
+{
+  "gojojoDeliveryApp": {
+    "returnReason": {
+      "home": {
+        "title": "Return Reasons",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Return Reason",
+        "createOrEditLabel": "Create or edit a Return Reason",
+        "notFound": "No Return Reasons found"
+      },
+      "created": "A new Return Reason is created with identifier {{ param }}",
+      "updated": "A Return Reason is updated with identifier {{ param }}",
+      "deleted": "A Return Reason is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Return Reason {{ id }}?"
+      },
+      "detail": {
+        "title": "Return Reason"
+      },
+      "id": "ID",
+      "comment": "Comment",
+      "image": "Image",
+      "label": "Label"
+    }
+  }
+}

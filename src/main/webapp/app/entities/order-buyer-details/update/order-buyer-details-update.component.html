@@ -1,0 +1,226 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-order-buyer-details-heading"
+        data-cy="OrderBuyerDetailsCreateUpdateHeading"
+        jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.home.createOrEditLabel"
+      >
+        Create or edit a Order Buyer Details
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.name" for="field_name">Name</label>
+          <input type="text" class="form-control" name="name" id="field_name" data-cy="name" formControlName="name" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.mobile" for="field_mobile">Mobile</label>
+          <input type="text" class="form-control" name="mobile" id="field_mobile" data-cy="mobile" formControlName="mobile" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.alternateMobile" for="field_alternateMobile"
+            >Alternate Mobile</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="alternateMobile"
+            id="field_alternateMobile"
+            data-cy="alternateMobile"
+            formControlName="alternateMobile"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.email" for="field_email">Email</label>
+          <input type="text" class="form-control" name="email" id="field_email" data-cy="email" formControlName="email" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.addressline1" for="field_addressline1"
+            >Addressline 1</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="addressline1"
+            id="field_addressline1"
+            data-cy="addressline1"
+            formControlName="addressline1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.addressline2" for="field_addressline2"
+            >Addressline 2</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="addressline2"
+            id="field_addressline2"
+            data-cy="addressline2"
+            formControlName="addressline2"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.pincode" for="field_pincode">Pincode</label>
+          <input type="text" class="form-control" name="pincode" id="field_pincode" data-cy="pincode" formControlName="pincode" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.city" for="field_city">City</label>
+          <input type="text" class="form-control" name="city" id="field_city" data-cy="city" formControlName="city" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.state" for="field_state">State</label>
+          <input type="text" class="form-control" name="state" id="field_state" data-cy="state" formControlName="state" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.country" for="field_country">Country</label>
+          <input type="text" class="form-control" name="country" id="field_country" data-cy="country" formControlName="country" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.companyName" for="field_companyName"
+            >Company Name</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="companyName"
+            id="field_companyName"
+            data-cy="companyName"
+            formControlName="companyName"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.isBillingSame" for="field_isBillingSame"
+            >Is Billing Same</label
+          >
+          <input
+            type="checkbox"
+            class="form-check"
+            name="isBillingSame"
+            id="field_isBillingSame"
+            data-cy="isBillingSame"
+            formControlName="isBillingSame"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billAddressline1" for="field_billAddressline1"
+            >Bill Addressline 1</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="billAddressline1"
+            id="field_billAddressline1"
+            data-cy="billAddressline1"
+            formControlName="billAddressline1"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billAddressline2" for="field_billAddressline2"
+            >Bill Addressline 2</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="billAddressline2"
+            id="field_billAddressline2"
+            data-cy="billAddressline2"
+            formControlName="billAddressline2"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billPincode" for="field_billPincode"
+            >Bill Pincode</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="billPincode"
+            id="field_billPincode"
+            data-cy="billPincode"
+            formControlName="billPincode"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billCity" for="field_billCity"
+            >Bill City</label
+          >
+          <input type="text" class="form-control" name="billCity" id="field_billCity" data-cy="billCity" formControlName="billCity" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billState" for="field_billState"
+            >Bill State</label
+          >
+          <input type="text" class="form-control" name="billState" id="field_billState" data-cy="billState" formControlName="billState" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billCountry" for="field_billCountry"
+            >Bill Country</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="billCountry"
+            id="field_billCountry"
+            data-cy="billCountry"
+            formControlName="billCountry"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.order" for="field_order">Order</label>
+          <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="orderOption.id === editForm.get('order')!.value?.id ? editForm.get('order')!.value : orderOption"
+              *ngFor="let orderOption of ordersCollection; trackBy: trackOrderById"
+            >
+              {{ orderOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
