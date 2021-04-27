@@ -7,12 +7,11 @@
         Added the constraints for entity ReturnReason.
     -->
     <changeSet id="20210329143100-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="label_id"
                                  baseTableName="return_reason"
                                  constraintName="fk_return_reason__label_id"
                                  referencedColumnNames="id"
                                  referencedTableName="return_label"/>
-
     </changeSet>
 </databaseChangeLog>

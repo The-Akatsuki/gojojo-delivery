@@ -26,12 +26,6 @@
         <dd>
           <span>{{ wallet.balanceOnHold }}</span>
         </dd>
-        <dt><span jhiTranslate="gojojoDeliveryApp.wallet.order">Order</span></dt>
-        <dd>
-          <div *ngIf="wallet.order">
-            <a [routerLink]="['/order', wallet.order?.id, 'view']">{{ wallet.order?.awb }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

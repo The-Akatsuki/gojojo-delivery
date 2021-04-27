@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -194,10 +196,18 @@ public class OrderBuyerDetailsResource {
     /**
      * {@code GET  /order-buyer-details} : get all the orderBuyerDetails.
      *
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orderBuyerDetails in body.
      */
     @GetMapping("/order-buyer-details")
-    public List<OrderBuyerDetails> getAllOrderBuyerDetails() {
+    public List<OrderBuyerDetails> getAllOrderBuyerDetails(@RequestParam(required = false) String filter) {
+        if ("order-is-null".equals(filter)) {
+            log.debug("REST request to get all OrderBuyerDetailss where order is null");
+            return StreamSupport
+                .stream(orderBuyerDetailsRepository.findAll().spliterator(), false)
+                .filter(orderBuyerDetails -> orderBuyerDetails.getOrder() == null)
+                .collect(Collectors.toList());
+        }
         log.debug("REST request to get all OrderBuyerDetails");
         return orderBuyerDetailsRepository.findAll();
     }

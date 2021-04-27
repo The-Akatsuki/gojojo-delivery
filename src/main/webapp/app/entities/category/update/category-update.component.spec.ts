@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { CategoryService } from '../service/category.service';
 import { ICategory, Category } from '../category.model';
-import { IProduct } from 'app/entities/product/product.model';
-import { ProductService } from 'app/entities/product/service/product.service';
 
 import { CategoryUpdateComponent } from './category-update.component';
 
@@ -20,7 +18,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<CategoryUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let categoryService: CategoryService;
-    let productService: ProductService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,7 +31,6 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(CategoryUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       categoryService = TestBed.inject(CategoryService);
-      productService = TestBed.inject(ProductService);
 
       comp = fixture.componentInstance;
     });
@@ -59,38 +55,16 @@ describe('Component Tests', () => {
         expect(comp.categoriesSharedCollection).toEqual(expectedCollection);
       });
 
-      it('Should call Product query and add missing value', () => {
-        const category: ICategory = { id: 456 };
-        const category: IProduct = { id: 80199 };
-        category.category = category;
-
-        const productCollection: IProduct[] = [{ id: 24103 }];
-        spyOn(productService, 'query').and.returnValue(of(new HttpResponse({ body: productCollection })));
-        const additionalProducts = [category];
-        const expectedCollection: IProduct[] = [...additionalProducts, ...productCollection];
-        spyOn(productService, 'addProductToCollectionIfMissing').and.returnValue(expectedCollection);
-
-        activatedRoute.data = of({ category });
-        comp.ngOnInit();
-
-        expect(productService.query).toHaveBeenCalled();
-        expect(productService.addProductToCollectionIfMissing).toHaveBeenCalledWith(productCollection, ...additionalProducts);
-        expect(comp.productsSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const category: ICategory = { id: 456 };
-        const parent: ICategory = { id: 96124 };
+        const parent: ICategory = { id: 80199 };
         category.parent = parent;
-        const category: IProduct = { id: 18566 };
-        category.category = category;
 
         activatedRoute.data = of({ category });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(category));
         expect(comp.categoriesSharedCollection).toContain(parent);
-        expect(comp.productsSharedCollection).toContain(category);
       });
     });
 
@@ -163,14 +137,6 @@ describe('Component Tests', () => {
         it('Should return tracked Category primary key', () => {
           const entity = { id: 123 };
           const trackResult = comp.trackCategoryById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
-      });
-
-      describe('trackProductById', () => {
-        it('Should return tracked Product primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackProductById(0, entity);
           expect(trackResult).toEqual(entity.id);
         });
       });

@@ -31,17 +31,18 @@ public class Wallet implements Serializable {
     @Column(name = "balance_on_hold")
     private Double balanceOnHold;
 
+    @OneToMany(mappedBy = "order")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @JsonIgnoreProperties(
+        value = { "buyerDetails", "shipmentActivities", "products", "payment", "pickupaddress", "order" },
+        allowSetters = true
+    )
+    private Set<Order> orders = new HashSet<>();
+
     @OneToMany(mappedBy = "wallet")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "wallet" }, allowSetters = true)
     private Set<Transaction> transactions = new HashSet<>();
-
-    @ManyToOne
-    @JsonIgnoreProperties(
-        value = { "shipmentActivities", "wallets", "buyerDetails", "product", "payment", "pickupaddress" },
-        allowSetters = true
-    )
-    private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -96,6 +97,37 @@ public class Wallet implements Serializable {
         this.balanceOnHold = balanceOnHold;
     }
 
+    public Set<Order> getOrders() {
+        return this.orders;
+    }
+
+    public Wallet orders(Set<Order> orders) {
+        this.setOrders(orders);
+        return this;
+    }
+
+    public Wallet addOrder(Order order) {
+        this.orders.add(order);
+        order.setOrder(this);
+        return this;
+    }
+
+    public Wallet removeOrder(Order order) {
+        this.orders.remove(order);
+        order.setOrder(null);
+        return this;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        if (this.orders != null) {
+            this.orders.forEach(i -> i.setOrder(null));
+        }
+        if (orders != null) {
+            orders.forEach(i -> i.setOrder(this));
+        }
+        this.orders = orders;
+    }
+
     public Set<Transaction> getTransactions() {
         return this.transactions;
     }
@@ -125,19 +157,6 @@ public class Wallet implements Serializable {
             transactions.forEach(i -> i.setWallet(this));
         }
         this.transactions = transactions;
-    }
-
-    public Order getOrder() {
-        return this.order;
-    }
-
-    public Wallet order(Order order) {
-        this.setOrder(order);
-        return this;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

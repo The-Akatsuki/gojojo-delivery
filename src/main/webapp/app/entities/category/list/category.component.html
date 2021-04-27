@@ -42,9 +42,6 @@
           <th scope="col" jhiSortBy="parent.name">
             <span jhiTranslate="gojojoDeliveryApp.category.parent">Parent</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="category.name">
-            <span jhiTranslate="gojojoDeliveryApp.category.category">Category</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -58,11 +55,6 @@
           <td>
             <div *ngIf="category.parent">
               <a [routerLink]="['/category', category.parent?.id, 'view']">{{ category.parent?.name }}</a>
-            </div>
-          </td>
-          <td>
-            <div *ngIf="category.category">
-              <a [routerLink]="['/product', category.category?.id, 'view']">{{ category.category?.name }}</a>
             </div>
           </td>
           <td class="text-right">

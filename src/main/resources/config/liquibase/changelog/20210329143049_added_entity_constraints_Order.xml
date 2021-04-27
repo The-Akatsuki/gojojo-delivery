@@ -7,10 +7,22 @@
         Added the constraints for entity Order.
     -->
     <changeSet id="20210329143049-2" author="jhipster">
-        
-        <addForeignKeyConstraint baseColumnNames="product_id"
+
+        <addForeignKeyConstraint baseColumnNames="buyer_details_id"
                                  baseTableName="jhi_order"
-                                 constraintName="fk_jhi_order__product_id"
+                                 constraintName="fk_jhi_order__buyer_details_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="order_buyer_details"/>
+
+        <addForeignKeyConstraint baseColumnNames="jhi_order_id"
+                                 baseTableName="rel_jhi_order__product"
+                                 constraintName="fk_rel_jhi_order__product__jhi_order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_order"/>
+
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="rel_jhi_order__product"
+                                 constraintName="fk_rel_jhi_order__product__product_id"
                                  referencedColumnNames="id"
                                  referencedTableName="product"/>
 
@@ -26,5 +38,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="pickup_address"/>
 
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="jhi_order"
+                                 constraintName="fk_jhi_order__order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="wallet"/>
     </changeSet>
 </databaseChangeLog>

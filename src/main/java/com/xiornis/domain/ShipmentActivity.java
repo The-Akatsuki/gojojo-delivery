@@ -31,7 +31,7 @@ public class ShipmentActivity implements Serializable {
 
     @ManyToOne
     @JsonIgnoreProperties(
-        value = { "shipmentActivities", "wallets", "buyerDetails", "product", "payment", "pickupaddress" },
+        value = { "buyerDetails", "shipmentActivities", "products", "payment", "pickupaddress", "order" },
         allowSetters = true
     )
     private Order order;

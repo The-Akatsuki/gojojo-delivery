@@ -18,7 +18,7 @@
         "title": "Order"
       },
       "id": "ID",
-      "orderId": "Order Id",
+      "orderNumber": "Order Number",
       "referenceId": "Reference Id",
       "orderType": "Order Type",
       "orderStatus": "Order Status",
@@ -45,12 +45,12 @@
       "courier": "Courier",
       "awb": "Awb",
       "manifestId": "Manifest Id",
-      "shipmentActivity": "Shipment Activity",
-      "wallet": "Wallet",
       "buyerDetails": "Buyer Details",
+      "shipmentActivity": "Shipment Activity",
       "product": "Product",
       "payment": "Payment",
-      "pickupaddress": "Pickupaddress"
+      "pickupaddress": "Pickupaddress",
+      "order": "Order"
     }
   }
 }

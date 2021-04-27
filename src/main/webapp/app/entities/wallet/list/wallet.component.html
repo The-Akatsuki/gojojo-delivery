@@ -42,9 +42,6 @@
           <th scope="col" jhiSortBy="balanceOnHold">
             <span jhiTranslate="gojojoDeliveryApp.wallet.balanceOnHold">Balance On Hold</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="order.awb">
-            <span jhiTranslate="gojojoDeliveryApp.wallet.order">Order</span> <fa-icon icon="sort"></fa-icon>
-          </th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -56,11 +53,6 @@
           <td>{{ wallet.usableBalance }}</td>
           <td>{{ wallet.totalBalance }}</td>
           <td>{{ wallet.balanceOnHold }}</td>
-          <td>
-            <div *ngIf="wallet.order">
-              <a [routerLink]="['/order', wallet.order?.id, 'view']">{{ wallet.order?.awb }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button type="submit" [routerLink]="['/wallet', wallet.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">

@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call ReasonEscalation query and add missing value', () => {
         const escalation: IEscalation = { id: 456 };
-        const reason: IReasonEscalation = { id: 36839 };
+        const reason: IReasonEscalation = { id: 14387 };
         escalation.reason = reason;
 
-        const reasonEscalationCollection: IReasonEscalation[] = [{ id: 30841 }];
+        const reasonEscalationCollection: IReasonEscalation[] = [{ id: 81336 }];
         spyOn(reasonEscalationService, 'query').and.returnValue(of(new HttpResponse({ body: reasonEscalationCollection })));
         const additionalReasonEscalations = [reason];
         const expectedCollection: IReasonEscalation[] = [...additionalReasonEscalations, ...reasonEscalationCollection];
@@ -64,7 +64,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const escalation: IEscalation = { id: 456 };
-        const reason: IReasonEscalation = { id: 90357 };
+        const reason: IReasonEscalation = { id: 31290 };
         escalation.reason = reason;
 
         activatedRoute.data = of({ escalation });

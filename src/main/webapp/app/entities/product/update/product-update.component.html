@@ -47,6 +47,18 @@
           <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.product.discount" for="field_discount">Discount</label>
           <input type="number" class="form-control" name="discount" id="field_discount" data-cy="discount" formControlName="discount" />
         </div>
+
+        <div class="form-group">
+          <label jhiTranslate="gojojoDeliveryApp.product.category" for="field_categories">Category</label>
+          <select class="form-control" id="field_categories" data-cy="category" multiple name="categories" formControlName="categories">
+            <option
+              [ngValue]="getSelectedCategory(categoryOption, editForm.get('categories')!.value)"
+              *ngFor="let categoryOption of categoriesSharedCollection; trackBy: trackCategoryById"
+            >
+              {{ categoryOption.id }}
+            </option>
+          </select>
+        </div>
       </div>
 
       <div>

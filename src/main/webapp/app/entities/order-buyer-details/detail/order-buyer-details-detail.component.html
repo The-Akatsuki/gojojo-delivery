@@ -88,12 +88,6 @@
         <dd>
           <span>{{ orderBuyerDetails.billCountry }}</span>
         </dd>
-        <dt><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.order">Order</span></dt>
-        <dd>
-          <div *ngIf="orderBuyerDetails.order">
-            <a [routerLink]="['/order', orderBuyerDetails.order?.id, 'view']">{{ orderBuyerDetails.order?.id }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

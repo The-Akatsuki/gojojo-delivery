@@ -42,6 +42,13 @@
         <dd>
           <span>{{ product.discount }}</span>
         </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.product.category">Category</span></dt>
+        <dd>
+          <span *ngFor="let category of product.categories; let last = last">
+            <a [routerLink]="['/category', category?.id, 'view']">{{ category.id }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
+        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

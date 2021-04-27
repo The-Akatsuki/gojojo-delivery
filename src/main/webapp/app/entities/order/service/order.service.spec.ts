@@ -28,7 +28,7 @@ describe('Service Tests', () => {
 
       elemDefault = {
         id: 0,
-        orderId: 'AAAAAAA',
+        orderNumber: 'AAAAAAA',
         referenceId: 'AAAAAAA',
         orderType: OrderType.ForwardOrder,
         orderStatus: OrderStatus.Processing,
@@ -101,7 +101,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            orderId: 'BBBBBB',
+            orderNumber: 'BBBBBB',
             referenceId: 'BBBBBB',
             orderType: 'BBBBBB',
             orderStatus: 'BBBBBB',
@@ -190,7 +190,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 1,
-            orderId: 'BBBBBB',
+            orderNumber: 'BBBBBB',
             referenceId: 'BBBBBB',
             orderType: 'BBBBBB',
             orderStatus: 'BBBBBB',
