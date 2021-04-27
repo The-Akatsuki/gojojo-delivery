@@ -30,16 +30,17 @@ public class Category implements Serializable {
 
     @OneToMany(mappedBy = "parent")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "categories", "parent", "category" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "categories", "parent", "categories" }, allowSetters = true)
     private Set<Category> categories = new HashSet<>();
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "categories", "parent", "category" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "categories", "parent", "categories" }, allowSetters = true)
     private Category parent;
 
-    @ManyToOne
+    @ManyToMany(mappedBy = "categories")
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "categories", "orders" }, allowSetters = true)
-    private Product category;
+    private Set<Product> categories = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -125,17 +126,35 @@ public class Category implements Serializable {
         this.parent = category;
     }
 
-    public Product getCategory() {
-        return this.category;
+    public Set<Product> getCategories() {
+        return this.categories;
     }
 
-    public Category category(Product product) {
-        this.setCategory(product);
+    public Category categories(Set<Product> products) {
+        this.setCategories(products);
         return this;
     }
 
-    public void setCategory(Product product) {
-        this.category = product;
+    public Category addCategory(Product product) {
+        this.categories.add(product);
+        product.getCategories().add(this);
+        return this;
+    }
+
+    public Category removeCategory(Product product) {
+        this.categories.remove(product);
+        product.getCategories().remove(this);
+        return this;
+    }
+
+    public void setCategories(Set<Product> products) {
+        if (this.categories != null) {
+            this.categories.forEach(i -> i.removeCategory(this));
+        }
+        if (products != null) {
+            products.forEach(i -> i.addCategory(this));
+        }
+        this.categories = products;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

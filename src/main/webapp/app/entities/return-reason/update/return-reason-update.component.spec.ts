@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call ReturnLabel query and add missing value', () => {
         const returnReason: IReturnReason = { id: 456 };
-        const label: IReturnLabel = { id: 39445 };
+        const label: IReturnLabel = { id: 2741 };
         returnReason.label = label;
 
-        const returnLabelCollection: IReturnLabel[] = [{ id: 28705 }];
+        const returnLabelCollection: IReturnLabel[] = [{ id: 81428 }];
         spyOn(returnLabelService, 'query').and.returnValue(of(new HttpResponse({ body: returnLabelCollection })));
         const additionalReturnLabels = [label];
         const expectedCollection: IReturnLabel[] = [...additionalReturnLabels, ...returnLabelCollection];
@@ -64,7 +64,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const returnReason: IReturnReason = { id: 456 };
-        const label: IReturnLabel = { id: 94923 };
+        const label: IReturnLabel = { id: 33374 };
         returnReason.label = label;
 
         activatedRoute.data = of({ returnReason });

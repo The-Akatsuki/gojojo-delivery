@@ -10,12 +10,16 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { IOrder, Order } from '../order.model';
 import { OrderService } from '../service/order.service';
+import { IOrderBuyerDetails } from 'app/entities/order-buyer-details/order-buyer-details.model';
+import { OrderBuyerDetailsService } from 'app/entities/order-buyer-details/service/order-buyer-details.service';
 import { IProduct } from 'app/entities/product/product.model';
 import { ProductService } from 'app/entities/product/service/product.service';
 import { IPaymentMethod } from 'app/entities/payment-method/payment-method.model';
 import { PaymentMethodService } from 'app/entities/payment-method/service/payment-method.service';
 import { IPickupAddress } from 'app/entities/pickup-address/pickup-address.model';
 import { PickupAddressService } from 'app/entities/pickup-address/service/pickup-address.service';
+import { IWallet } from 'app/entities/wallet/wallet.model';
+import { WalletService } from 'app/entities/wallet/service/wallet.service';
 
 @Component({
   selector: 'jhi-order-update',
@@ -24,9 +28,11 @@ import { PickupAddressService } from 'app/entities/pickup-address/service/pickup
 export class OrderUpdateComponent implements OnInit {
   isSaving = false;
 
+  buyerDetailsCollection: IOrderBuyerDetails[] = [];
   productsSharedCollection: IProduct[] = [];
   paymentMethodsSharedCollection: IPaymentMethod[] = [];
   pickupAddressesSharedCollection: IPickupAddress[] = [];
+  walletsSharedCollection: IWallet[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -57,16 +63,20 @@ export class OrderUpdateComponent implements OnInit {
     courier: [],
     awb: [],
     manifestId: [],
-    product: [],
+    buyerDetails: [],
+    products: [],
     payment: [],
     pickupaddress: [],
+    order: [],
   });
 
   constructor(
     protected orderService: OrderService,
+    protected orderBuyerDetailsService: OrderBuyerDetailsService,
     protected productService: ProductService,
     protected paymentMethodService: PaymentMethodService,
     protected pickupAddressService: PickupAddressService,
+    protected walletService: WalletService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -98,6 +108,10 @@ export class OrderUpdateComponent implements OnInit {
     }
   }
 
+  trackOrderBuyerDetailsById(index: number, item: IOrderBuyerDetails): number {
+    return item.id!;
+  }
+
   trackProductById(index: number, item: IProduct): number {
     return item.id!;
   }
@@ -108,6 +122,21 @@ export class OrderUpdateComponent implements OnInit {
 
   trackPickupAddressById(index: number, item: IPickupAddress): number {
     return item.id!;
+  }
+
+  trackWalletById(index: number, item: IWallet): number {
+    return item.id!;
+  }
+
+  getSelectedProduct(option: IProduct, selectedVals?: IProduct[]): IProduct {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IOrder>>): void {
@@ -159,12 +188,21 @@ export class OrderUpdateComponent implements OnInit {
       courier: order.courier,
       awb: order.awb,
       manifestId: order.manifestId,
-      product: order.product,
+      buyerDetails: order.buyerDetails,
+      products: order.products,
       payment: order.payment,
       pickupaddress: order.pickupaddress,
+      order: order.order,
     });
 
-    this.productsSharedCollection = this.productService.addProductToCollectionIfMissing(this.productsSharedCollection, order.product);
+    this.buyerDetailsCollection = this.orderBuyerDetailsService.addOrderBuyerDetailsToCollectionIfMissing(
+      this.buyerDetailsCollection,
+      order.buyerDetails
+    );
+    this.productsSharedCollection = this.productService.addProductToCollectionIfMissing(
+      this.productsSharedCollection,
+      ...(order.products ?? [])
+    );
     this.paymentMethodsSharedCollection = this.paymentMethodService.addPaymentMethodToCollectionIfMissing(
       this.paymentMethodsSharedCollection,
       order.payment
@@ -173,14 +211,30 @@ export class OrderUpdateComponent implements OnInit {
       this.pickupAddressesSharedCollection,
       order.pickupaddress
     );
+    this.walletsSharedCollection = this.walletService.addWalletToCollectionIfMissing(this.walletsSharedCollection, order.order);
   }
 
   protected loadRelationshipsOptions(): void {
+    this.orderBuyerDetailsService
+      .query({ filter: 'order-is-null' })
+      .pipe(map((res: HttpResponse<IOrderBuyerDetails[]>) => res.body ?? []))
+      .pipe(
+        map((orderBuyerDetails: IOrderBuyerDetails[]) =>
+          this.orderBuyerDetailsService.addOrderBuyerDetailsToCollectionIfMissing(
+            orderBuyerDetails,
+            this.editForm.get('buyerDetails')!.value
+          )
+        )
+      )
+      .subscribe((orderBuyerDetails: IOrderBuyerDetails[]) => (this.buyerDetailsCollection = orderBuyerDetails));
+
     this.productService
       .query()
       .pipe(map((res: HttpResponse<IProduct[]>) => res.body ?? []))
       .pipe(
-        map((products: IProduct[]) => this.productService.addProductToCollectionIfMissing(products, this.editForm.get('product')!.value))
+        map((products: IProduct[]) =>
+          this.productService.addProductToCollectionIfMissing(products, ...(this.editForm.get('products')!.value ?? []))
+        )
       )
       .subscribe((products: IProduct[]) => (this.productsSharedCollection = products));
 
@@ -203,6 +257,12 @@ export class OrderUpdateComponent implements OnInit {
         )
       )
       .subscribe((pickupAddresses: IPickupAddress[]) => (this.pickupAddressesSharedCollection = pickupAddresses));
+
+    this.walletService
+      .query()
+      .pipe(map((res: HttpResponse<IWallet[]>) => res.body ?? []))
+      .pipe(map((wallets: IWallet[]) => this.walletService.addWalletToCollectionIfMissing(wallets, this.editForm.get('order')!.value)))
+      .subscribe((wallets: IWallet[]) => (this.walletsSharedCollection = wallets));
   }
 
   protected createFromForm(): IOrder {
@@ -236,9 +296,11 @@ export class OrderUpdateComponent implements OnInit {
       courier: this.editForm.get(['courier'])!.value,
       awb: this.editForm.get(['awb'])!.value,
       manifestId: this.editForm.get(['manifestId'])!.value,
-      product: this.editForm.get(['product'])!.value,
+      buyerDetails: this.editForm.get(['buyerDetails'])!.value,
+      products: this.editForm.get(['products'])!.value,
       payment: this.editForm.get(['payment'])!.value,
       pickupaddress: this.editForm.get(['pickupaddress'])!.value,
+      order: this.editForm.get(['order'])!.value,
     };
   }
 }

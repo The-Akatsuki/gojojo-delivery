@@ -3,10 +3,12 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 
 import { IProduct, Product } from '../product.model';
 import { ProductService } from '../service/product.service';
+import { ICategory } from 'app/entities/category/category.model';
+import { CategoryService } from 'app/entities/category/service/category.service';
 
 @Component({
   selector: 'jhi-product-update',
@@ -14,6 +16,8 @@ import { ProductService } from '../service/product.service';
 })
 export class ProductUpdateComponent implements OnInit {
   isSaving = false;
+
+  categoriesSharedCollection: ICategory[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -24,13 +28,21 @@ export class ProductUpdateComponent implements OnInit {
     taxRate: [],
     hsn: [],
     discount: [],
+    categories: [],
   });
 
-  constructor(protected productService: ProductService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
+  constructor(
+    protected productService: ProductService,
+    protected categoryService: CategoryService,
+    protected activatedRoute: ActivatedRoute,
+    protected fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ product }) => {
       this.updateForm(product);
+
+      this.loadRelationshipsOptions();
     });
   }
 
@@ -46,6 +58,21 @@ export class ProductUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.productService.create(product));
     }
+  }
+
+  trackCategoryById(index: number, item: ICategory): number {
+    return item.id!;
+  }
+
+  getSelectedCategory(option: ICategory, selectedVals?: ICategory[]): ICategory {
+    if (selectedVals) {
+      for (const selectedVal of selectedVals) {
+        if (option.id === selectedVal.id) {
+          return selectedVal;
+        }
+      }
+    }
+    return option;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IProduct>>): void {
@@ -77,7 +104,25 @@ export class ProductUpdateComponent implements OnInit {
       taxRate: product.taxRate,
       hsn: product.hsn,
       discount: product.discount,
+      categories: product.categories,
     });
+
+    this.categoriesSharedCollection = this.categoryService.addCategoryToCollectionIfMissing(
+      this.categoriesSharedCollection,
+      ...(product.categories ?? [])
+    );
+  }
+
+  protected loadRelationshipsOptions(): void {
+    this.categoryService
+      .query()
+      .pipe(map((res: HttpResponse<ICategory[]>) => res.body ?? []))
+      .pipe(
+        map((categories: ICategory[]) =>
+          this.categoryService.addCategoryToCollectionIfMissing(categories, ...(this.editForm.get('categories')!.value ?? []))
+        )
+      )
+      .subscribe((categories: ICategory[]) => (this.categoriesSharedCollection = categories));
   }
 
   protected createFromForm(): IProduct {
@@ -91,6 +136,7 @@ export class ProductUpdateComponent implements OnInit {
       taxRate: this.editForm.get(['taxRate'])!.value,
       hsn: this.editForm.get(['hsn'])!.value,
       discount: this.editForm.get(['discount'])!.value,
+      categories: this.editForm.get(['categories'])!.value,
     };
   }
 }

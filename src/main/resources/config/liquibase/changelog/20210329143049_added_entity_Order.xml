@@ -95,8 +95,8 @@
             <column name="manifest_id" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="product_id" type="bigint">
-                <constraints nullable="true" />
+            <column name="buyer_details_id" type="bigint">
+                <constraints nullable="true" unique="true" uniqueConstraintName="ux_jhi_order__buyer_details_id" />
             </column>
             <column name="payment_id" type="bigint">
                 <constraints nullable="true" />
@@ -104,9 +104,26 @@
             <column name="pickupaddress_id" type="bigint">
                 <constraints nullable="true" />
             </column>
+            <column name="order_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
         <dropDefaultValue tableName="jhi_order" columnName="order_date" columnDataType="${datetimeType}"/>
+    </changeSet>
+
+    <changeSet id="20210329143049-1-relations" author="jhipster">
+
+        <createTable tableName="rel_jhi_order__product">
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jhi_order_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="jhi_order_id, product_id" tableName="rel_jhi_order__product"/>
     </changeSet>
 
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->

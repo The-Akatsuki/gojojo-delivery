@@ -1,13 +1,13 @@
-import { ITransaction } from 'app/entities/transaction/transaction.model';
 import { IOrder } from 'app/entities/order/order.model';
+import { ITransaction } from 'app/entities/transaction/transaction.model';
 
 export interface IWallet {
   id?: number;
   usableBalance?: number | null;
   totalBalance?: number | null;
   balanceOnHold?: number | null;
+  orders?: IOrder[] | null;
   transactions?: ITransaction[] | null;
-  order?: IOrder | null;
 }
 
 export class Wallet implements IWallet {
@@ -16,8 +16,8 @@ export class Wallet implements IWallet {
     public usableBalance?: number | null,
     public totalBalance?: number | null,
     public balanceOnHold?: number | null,
-    public transactions?: ITransaction[] | null,
-    public order?: IOrder | null
+    public orders?: IOrder[] | null,
+    public transactions?: ITransaction[] | null
   ) {}
 }
 

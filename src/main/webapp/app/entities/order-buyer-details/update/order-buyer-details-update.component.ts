@@ -3,12 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { IOrderBuyerDetails, OrderBuyerDetails } from '../order-buyer-details.model';
 import { OrderBuyerDetailsService } from '../service/order-buyer-details.service';
-import { IOrder } from 'app/entities/order/order.model';
-import { OrderService } from 'app/entities/order/service/order.service';
 
 @Component({
   selector: 'jhi-order-buyer-details-update',
@@ -16,8 +14,6 @@ import { OrderService } from 'app/entities/order/service/order.service';
 })
 export class OrderBuyerDetailsUpdateComponent implements OnInit {
   isSaving = false;
-
-  ordersCollection: IOrder[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -39,12 +35,10 @@ export class OrderBuyerDetailsUpdateComponent implements OnInit {
     billCity: [],
     billState: [],
     billCountry: [],
-    order: [],
   });
 
   constructor(
     protected orderBuyerDetailsService: OrderBuyerDetailsService,
-    protected orderService: OrderService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
   ) {}
@@ -52,8 +46,6 @@ export class OrderBuyerDetailsUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ orderBuyerDetails }) => {
       this.updateForm(orderBuyerDetails);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -69,10 +61,6 @@ export class OrderBuyerDetailsUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.orderBuyerDetailsService.create(orderBuyerDetails));
     }
-  }
-
-  trackOrderById(index: number, item: IOrder): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IOrderBuyerDetails>>): void {
@@ -115,18 +103,7 @@ export class OrderBuyerDetailsUpdateComponent implements OnInit {
       billCity: orderBuyerDetails.billCity,
       billState: orderBuyerDetails.billState,
       billCountry: orderBuyerDetails.billCountry,
-      order: orderBuyerDetails.order,
     });
-
-    this.ordersCollection = this.orderService.addOrderToCollectionIfMissing(this.ordersCollection, orderBuyerDetails.order);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.orderService
-      .query({ filter: 'buyerdetails-is-null' })
-      .pipe(map((res: HttpResponse<IOrder[]>) => res.body ?? []))
-      .pipe(map((orders: IOrder[]) => this.orderService.addOrderToCollectionIfMissing(orders, this.editForm.get('order')!.value)))
-      .subscribe((orders: IOrder[]) => (this.ordersCollection = orders));
   }
 
   protected createFromForm(): IOrderBuyerDetails {
@@ -151,7 +128,6 @@ export class OrderBuyerDetailsUpdateComponent implements OnInit {
       billCity: this.editForm.get(['billCity'])!.value,
       billState: this.editForm.get(['billState'])!.value,
       billCountry: this.editForm.get(['billCountry'])!.value,
-      order: this.editForm.get(['order'])!.value,
     };
   }
 }

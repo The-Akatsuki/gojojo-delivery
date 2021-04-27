@@ -165,12 +165,21 @@ public class ProductResource {
      * {@code GET  /products} : get all the products.
      *
      * @param pageable the pagination information.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable) {
+    public ResponseEntity<List<Product>> getAllProducts(
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         log.debug("REST request to get a page of Products");
-        Page<Product> page = productRepository.findAll(pageable);
+        Page<Product> page;
+        if (eagerload) {
+            page = productRepository.findAllWithEagerRelationships(pageable);
+        } else {
+            page = productRepository.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -184,7 +193,7 @@ public class ProductResource {
     @GetMapping("/products/{id}")
     public ResponseEntity<Product> getProduct(@PathVariable Long id) {
         log.debug("REST request to get Product : {}", id);
-        Optional<Product> product = productRepository.findById(id);
+        Optional<Product> product = productRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(product);
     }
 

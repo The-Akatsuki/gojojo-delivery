@@ -76,6 +76,8 @@ public class CacheConfiguration {
             createCache(cm, com.xiornis.domain.Wallet.class.getName());
             createCache(cm, com.xiornis.domain.Wallet.class.getName() + ".transactions");
             createCache(cm, com.xiornis.domain.Transaction.class.getName());
+            createCache(cm, com.xiornis.domain.Order.class.getName() + ".products");
+            createCache(cm, com.xiornis.domain.Wallet.class.getName() + ".orders");
             // jhipster-needle-ehcache-add-entry
         };
     }

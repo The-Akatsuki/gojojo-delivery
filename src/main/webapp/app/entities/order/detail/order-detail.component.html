@@ -122,11 +122,18 @@
         <dd>
           <span>{{ order.manifestId }}</span>
         </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.buyerDetails">Buyer Details</span></dt>
+        <dd>
+          <div *ngIf="order.buyerDetails">
+            <a [routerLink]="['/order-buyer-details', order.buyerDetails?.id, 'view']">{{ order.buyerDetails?.id }}</a>
+          </div>
+        </dd>
         <dt><span jhiTranslate="gojojoDeliveryApp.order.product">Product</span></dt>
         <dd>
-          <div *ngIf="order.product">
-            <a [routerLink]="['/product', order.product?.id, 'view']">{{ order.product?.name }}</a>
-          </div>
+          <span *ngFor="let product of order.products; let last = last">
+            <a [routerLink]="['/product', product?.id, 'view']">{{ product.name }}</a
+            >{{ last ? '' : ', ' }}
+          </span>
         </dd>
         <dt><span jhiTranslate="gojojoDeliveryApp.order.payment">Payment</span></dt>
         <dd>
@@ -138,6 +145,12 @@
         <dd>
           <div *ngIf="order.pickupaddress">
             <a [routerLink]="['/pickup-address', order.pickupaddress?.id, 'view']">{{ order.pickupaddress?.nickName }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="gojojoDeliveryApp.order.order">Order</span></dt>
+        <dd>
+          <div *ngIf="order.order">
+            <a [routerLink]="['/wallet', order.order?.id, 'view']">{{ order.order?.awb }}</a>
           </div>
         </dd>
       </dl>

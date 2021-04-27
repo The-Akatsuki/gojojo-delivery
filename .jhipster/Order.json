@@ -114,30 +114,25 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "orderBuyerDetails",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "buyerDetails",
+      "ownerSide": true
+    },
+    {
       "relationshipType": "one-to-many",
       "otherEntityName": "shipmentActivity",
       "otherEntityRelationshipName": "order",
       "relationshipName": "shipmentActivity"
     },
     {
-      "relationshipType": "one-to-many",
-      "otherEntityName": "wallet",
-      "otherEntityRelationshipName": "order",
-      "relationshipName": "wallet"
-    },
-    {
-      "relationshipType": "one-to-one",
-      "otherEntityName": "orderBuyerDetails",
-      "otherEntityRelationshipName": "order",
-      "relationshipName": "buyerDetails",
-      "ownerSide": false
-    },
-    {
-      "relationshipType": "many-to-one",
+      "relationshipType": "many-to-many",
       "otherEntityName": "product",
       "otherEntityRelationshipName": "order",
       "relationshipName": "product",
-      "otherEntityField": "name"
+      "otherEntityField": "name",
+      "ownerSide": true
     },
     {
       "relationshipType": "many-to-one",
@@ -152,6 +147,13 @@
       "otherEntityRelationshipName": "order",
       "relationshipName": "pickupaddress",
       "otherEntityField": "nickName"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "wallet",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "order",
+      "otherEntityField": "awb"
     }
   ],
   "entityTableName": "jhi_order",

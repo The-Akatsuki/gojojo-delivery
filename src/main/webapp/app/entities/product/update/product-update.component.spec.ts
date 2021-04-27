@@ -9,6 +9,8 @@ import { of, Subject } from 'rxjs';
 
 import { ProductService } from '../service/product.service';
 import { IProduct, Product } from '../product.model';
+import { ICategory } from 'app/entities/category/category.model';
+import { CategoryService } from 'app/entities/category/service/category.service';
 
 import { ProductUpdateComponent } from './product-update.component';
 
@@ -18,6 +20,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<ProductUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let productService: ProductService;
+    let categoryService: CategoryService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -31,18 +34,41 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(ProductUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       productService = TestBed.inject(ProductService);
+      categoryService = TestBed.inject(CategoryService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
+      it('Should call Category query and add missing value', () => {
+        const product: IProduct = { id: 456 };
+        const categories: ICategory[] = [{ id: 75834 }];
+        product.categories = categories;
+
+        const categoryCollection: ICategory[] = [{ id: 24965 }];
+        spyOn(categoryService, 'query').and.returnValue(of(new HttpResponse({ body: categoryCollection })));
+        const additionalCategories = [...categories];
+        const expectedCollection: ICategory[] = [...additionalCategories, ...categoryCollection];
+        spyOn(categoryService, 'addCategoryToCollectionIfMissing').and.returnValue(expectedCollection);
+
+        activatedRoute.data = of({ product });
+        comp.ngOnInit();
+
+        expect(categoryService.query).toHaveBeenCalled();
+        expect(categoryService.addCategoryToCollectionIfMissing).toHaveBeenCalledWith(categoryCollection, ...additionalCategories);
+        expect(comp.categoriesSharedCollection).toEqual(expectedCollection);
+      });
+
       it('Should update editForm', () => {
         const product: IProduct = { id: 456 };
+        const categories: ICategory = { id: 30057 };
+        product.categories = [categories];
 
         activatedRoute.data = of({ product });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(product));
+        expect(comp.categoriesSharedCollection).toContain(categories);
       });
     });
 
@@ -107,6 +133,44 @@ describe('Component Tests', () => {
         expect(productService.update).toHaveBeenCalledWith(product);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('Tracking relationships identifiers', () => {
+      describe('trackCategoryById', () => {
+        it('Should return tracked Category primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackCategoryById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
+    });
+
+    describe('Getting selected relationships', () => {
+      describe('getSelectedCategory', () => {
+        it('Should return option if no Category is selected', () => {
+          const option = { id: 123 };
+          const result = comp.getSelectedCategory(option);
+          expect(result === option).toEqual(true);
+        });
+
+        it('Should return selected Category for according option', () => {
+          const option = { id: 123 };
+          const selected = { id: 123 };
+          const selected2 = { id: 456 };
+          const result = comp.getSelectedCategory(option, [selected2, selected]);
+          expect(result === selected).toEqual(true);
+          expect(result === selected2).toEqual(false);
+          expect(result === option).toEqual(false);
+        });
+
+        it('Should return option if this Category is not selected', () => {
+          const option = { id: 123 };
+          const selected = { id: 456 };
+          const result = comp.getSelectedCategory(option, [selected]);
+          expect(result === option).toEqual(true);
+          expect(result === selected).toEqual(false);
+        });
       });
     });
   });

@@ -21,8 +21,8 @@
       "usableBalance": "Usable Balance",
       "totalBalance": "Total Balance",
       "balanceOnHold": "Balance On Hold",
-      "transaction": "Transaction",
-      "order": "Order"
+      "order": "Order",
+      "transaction": "Transaction"
     }
   }
 }

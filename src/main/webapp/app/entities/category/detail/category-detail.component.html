@@ -28,12 +28,6 @@
             <a [routerLink]="['/category', category.parent?.id, 'view']">{{ category.parent?.name }}</a>
           </div>
         </dd>
-        <dt><span jhiTranslate="gojojoDeliveryApp.category.category">Category</span></dt>
-        <dd>
-          <div *ngIf="category.category">
-            <a [routerLink]="['/product', category.category?.id, 'view']">{{ category.category?.name }}</a>
-          </div>
-        </dd>
       </dl>
 
       <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">

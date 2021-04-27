@@ -25,11 +25,12 @@
       "otherEntityField": "name"
     },
     {
-      "relationshipType": "many-to-one",
+      "relationshipType": "many-to-many",
       "otherEntityName": "product",
       "otherEntityRelationshipName": "category",
       "relationshipName": "category",
-      "otherEntityField": "name"
+      "otherEntityField": "name",
+      "ownerSide": false
     }
   ],
   "entityTableName": "category",

@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { OrderBuyerDetailsService } from '../service/order-buyer-details.service';
 import { IOrderBuyerDetails, OrderBuyerDetails } from '../order-buyer-details.model';
-import { IOrder } from 'app/entities/order/order.model';
-import { OrderService } from 'app/entities/order/service/order.service';
 
 import { OrderBuyerDetailsUpdateComponent } from './order-buyer-details-update.component';
 
@@ -20,7 +18,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<OrderBuyerDetailsUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let orderBuyerDetailsService: OrderBuyerDetailsService;
-    let orderService: OrderService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,40 +31,18 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(OrderBuyerDetailsUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       orderBuyerDetailsService = TestBed.inject(OrderBuyerDetailsService);
-      orderService = TestBed.inject(OrderService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
-      it('Should call order query and add missing value', () => {
-        const orderBuyerDetails: IOrderBuyerDetails = { id: 456 };
-        const order: IOrder = { id: 611 };
-        orderBuyerDetails.order = order;
-
-        const orderCollection: IOrder[] = [{ id: 55618 }];
-        spyOn(orderService, 'query').and.returnValue(of(new HttpResponse({ body: orderCollection })));
-        const expectedCollection: IOrder[] = [order, ...orderCollection];
-        spyOn(orderService, 'addOrderToCollectionIfMissing').and.returnValue(expectedCollection);
-
-        activatedRoute.data = of({ orderBuyerDetails });
-        comp.ngOnInit();
-
-        expect(orderService.query).toHaveBeenCalled();
-        expect(orderService.addOrderToCollectionIfMissing).toHaveBeenCalledWith(orderCollection, order);
-        expect(comp.ordersCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const orderBuyerDetails: IOrderBuyerDetails = { id: 456 };
-        const order: IOrder = { id: 97554 };
-        orderBuyerDetails.order = order;
 
         activatedRoute.data = of({ orderBuyerDetails });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(orderBuyerDetails));
-        expect(comp.ordersCollection).toContain(order);
       });
     });
 
@@ -132,16 +107,6 @@ describe('Component Tests', () => {
         expect(orderBuyerDetailsService.update).toHaveBeenCalledWith(orderBuyerDetails);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('Tracking relationships identifiers', () => {
-      describe('trackOrderById', () => {
-        it('Should return tracked Order primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackOrderById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
       });
     });
   });

@@ -9,8 +9,6 @@ import { of, Subject } from 'rxjs';
 
 import { WalletService } from '../service/wallet.service';
 import { IWallet, Wallet } from '../wallet.model';
-import { IOrder } from 'app/entities/order/order.model';
-import { OrderService } from 'app/entities/order/service/order.service';
 
 import { WalletUpdateComponent } from './wallet-update.component';
 
@@ -20,7 +18,6 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<WalletUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let walletService: WalletService;
-    let orderService: OrderService;
 
     beforeEach(() => {
       TestBed.configureTestingModule({
@@ -34,41 +31,18 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(WalletUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       walletService = TestBed.inject(WalletService);
-      orderService = TestBed.inject(OrderService);
 
       comp = fixture.componentInstance;
     });
 
     describe('ngOnInit', () => {
-      it('Should call Order query and add missing value', () => {
-        const wallet: IWallet = { id: 456 };
-        const order: IOrder = { id: 98303 };
-        wallet.order = order;
-
-        const orderCollection: IOrder[] = [{ id: 22122 }];
-        spyOn(orderService, 'query').and.returnValue(of(new HttpResponse({ body: orderCollection })));
-        const additionalOrders = [order];
-        const expectedCollection: IOrder[] = [...additionalOrders, ...orderCollection];
-        spyOn(orderService, 'addOrderToCollectionIfMissing').and.returnValue(expectedCollection);
-
-        activatedRoute.data = of({ wallet });
-        comp.ngOnInit();
-
-        expect(orderService.query).toHaveBeenCalled();
-        expect(orderService.addOrderToCollectionIfMissing).toHaveBeenCalledWith(orderCollection, ...additionalOrders);
-        expect(comp.ordersSharedCollection).toEqual(expectedCollection);
-      });
-
       it('Should update editForm', () => {
         const wallet: IWallet = { id: 456 };
-        const order: IOrder = { id: 77218 };
-        wallet.order = order;
 
         activatedRoute.data = of({ wallet });
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(wallet));
-        expect(comp.ordersSharedCollection).toContain(order);
       });
     });
 
@@ -133,16 +107,6 @@ describe('Component Tests', () => {
         expect(walletService.update).toHaveBeenCalledWith(wallet);
         expect(comp.isSaving).toEqual(false);
         expect(comp.previousState).not.toHaveBeenCalled();
-      });
-    });
-
-    describe('Tracking relationships identifiers', () => {
-      describe('trackOrderById', () => {
-        it('Should return tracked Order primary key', () => {
-          const entity = { id: 123 };
-          const trackResult = comp.trackOrderById(0, entity);
-          expect(trackResult).toEqual(entity.id);
-        });
       });
     });
   });

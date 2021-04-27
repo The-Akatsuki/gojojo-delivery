@@ -6,7 +6,7 @@ export interface ICategory {
   isActive?: boolean | null;
   categories?: ICategory[] | null;
   parent?: ICategory | null;
-  category?: IProduct | null;
+  categories?: IProduct[] | null;
 }
 
 export class Category implements ICategory {
@@ -16,7 +16,7 @@ export class Category implements ICategory {
     public isActive?: boolean | null,
     public categories?: ICategory[] | null,
     public parent?: ICategory | null,
-    public category?: IProduct | null
+    public categories?: IProduct[] | null
   ) {
     this.isActive = this.isActive ?? false;
   }

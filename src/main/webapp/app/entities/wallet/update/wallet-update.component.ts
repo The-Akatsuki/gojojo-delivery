@@ -3,12 +3,10 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { finalize, map } from 'rxjs/operators';
+import { finalize } from 'rxjs/operators';
 
 import { IWallet, Wallet } from '../wallet.model';
 import { WalletService } from '../service/wallet.service';
-import { IOrder } from 'app/entities/order/order.model';
-import { OrderService } from 'app/entities/order/service/order.service';
 
 @Component({
   selector: 'jhi-wallet-update',
@@ -17,28 +15,18 @@ import { OrderService } from 'app/entities/order/service/order.service';
 export class WalletUpdateComponent implements OnInit {
   isSaving = false;
 
-  ordersSharedCollection: IOrder[] = [];
-
   editForm = this.fb.group({
     id: [],
     usableBalance: [],
     totalBalance: [],
     balanceOnHold: [],
-    order: [],
   });
 
-  constructor(
-    protected walletService: WalletService,
-    protected orderService: OrderService,
-    protected activatedRoute: ActivatedRoute,
-    protected fb: FormBuilder
-  ) {}
+  constructor(protected walletService: WalletService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ wallet }) => {
       this.updateForm(wallet);
-
-      this.loadRelationshipsOptions();
     });
   }
 
@@ -54,10 +42,6 @@ export class WalletUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.walletService.create(wallet));
     }
-  }
-
-  trackOrderById(index: number, item: IOrder): number {
-    return item.id!;
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IWallet>>): void {
@@ -85,18 +69,7 @@ export class WalletUpdateComponent implements OnInit {
       usableBalance: wallet.usableBalance,
       totalBalance: wallet.totalBalance,
       balanceOnHold: wallet.balanceOnHold,
-      order: wallet.order,
     });
-
-    this.ordersSharedCollection = this.orderService.addOrderToCollectionIfMissing(this.ordersSharedCollection, wallet.order);
-  }
-
-  protected loadRelationshipsOptions(): void {
-    this.orderService
-      .query()
-      .pipe(map((res: HttpResponse<IOrder[]>) => res.body ?? []))
-      .pipe(map((orders: IOrder[]) => this.orderService.addOrderToCollectionIfMissing(orders, this.editForm.get('order')!.value)))
-      .subscribe((orders: IOrder[]) => (this.ordersSharedCollection = orders));
   }
 
   protected createFromForm(): IWallet {
@@ -106,7 +79,6 @@ export class WalletUpdateComponent implements OnInit {
       usableBalance: this.editForm.get(['usableBalance'])!.value,
       totalBalance: this.editForm.get(['totalBalance'])!.value,
       balanceOnHold: this.editForm.get(['balanceOnHold'])!.value,
-      order: this.editForm.get(['order'])!.value,
     };
   }
 }

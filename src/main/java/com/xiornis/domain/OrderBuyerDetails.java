@@ -75,11 +75,10 @@ public class OrderBuyerDetails implements Serializable {
     private String billCountry;
 
     @JsonIgnoreProperties(
-        value = { "shipmentActivities", "wallets", "buyerDetails", "product", "payment", "pickupaddress" },
+        value = { "buyerDetails", "shipmentActivities", "products", "payment", "pickupaddress", "order" },
         allowSetters = true
     )
-    @OneToOne
-    @JoinColumn(unique = true)
+    @OneToOne(mappedBy = "buyerDetails")
     private Order order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -340,6 +339,12 @@ public class OrderBuyerDetails implements Serializable {
     }
 
     public void setOrder(Order order) {
+        if (this.order != null) {
+            this.order.setBuyerDetails(null);
+        }
+        if (order != null) {
+            order.setBuyerDetails(this);
+        }
         this.order = order;
     }
 

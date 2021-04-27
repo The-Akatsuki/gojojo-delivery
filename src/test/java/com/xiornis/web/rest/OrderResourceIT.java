@@ -2,6 +2,7 @@ package com.xiornis.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -12,14 +13,20 @@ import com.xiornis.domain.enumeration.OrderType;
 import com.xiornis.repository.OrderRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link OrderResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class OrderResourceIT {
@@ -122,6 +130,9 @@ class OrderResourceIT {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Mock
+    private OrderRepository orderRepositoryMock;
 
     @Autowired
     private EntityManager em;
@@ -311,6 +322,24 @@ class OrderResourceIT {
             .andExpect(jsonPath("$.[*].courier").value(hasItem(DEFAULT_COURIER)))
             .andExpect(jsonPath("$.[*].awb").value(hasItem(DEFAULT_AWB)))
             .andExpect(jsonPath("$.[*].manifestId").value(hasItem(DEFAULT_MANIFEST_ID)));
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllOrdersWithEagerRelationshipsIsEnabled() throws Exception {
+        when(orderRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restOrderMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(orderRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllOrdersWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(orderRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restOrderMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(orderRepositoryMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test

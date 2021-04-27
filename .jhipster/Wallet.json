@@ -17,16 +17,15 @@
   "relationships": [
     {
       "relationshipType": "one-to-many",
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "order"
+    },
+    {
+      "relationshipType": "one-to-many",
       "otherEntityName": "transaction",
       "otherEntityRelationshipName": "wallet",
       "relationshipName": "transaction"
-    },
-    {
-      "relationshipType": "many-to-one",
-      "otherEntityName": "order",
-      "otherEntityRelationshipName": "wallet",
-      "relationshipName": "order",
-      "otherEntityField": "awb"
     }
   ],
   "entityTableName": "wallet",

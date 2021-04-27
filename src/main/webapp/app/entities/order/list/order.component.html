@@ -113,14 +113,17 @@
           <th scope="col" jhiSortBy="manifestId">
             <span jhiTranslate="gojojoDeliveryApp.order.manifestId">Manifest Id</span> <fa-icon icon="sort"></fa-icon>
           </th>
-          <th scope="col" jhiSortBy="product.name">
-            <span jhiTranslate="gojojoDeliveryApp.order.product">Product</span> <fa-icon icon="sort"></fa-icon>
+          <th scope="col" jhiSortBy="buyerDetails.id">
+            <span jhiTranslate="gojojoDeliveryApp.order.buyerDetails">Buyer Details</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="payment.name">
             <span jhiTranslate="gojojoDeliveryApp.order.payment">Payment</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col" jhiSortBy="pickupaddress.nickName">
             <span jhiTranslate="gojojoDeliveryApp.order.pickupaddress">Pickupaddress</span> <fa-icon icon="sort"></fa-icon>
+          </th>
+          <th scope="col" jhiSortBy="order.awb">
+            <span jhiTranslate="gojojoDeliveryApp.order.order">Order</span> <fa-icon icon="sort"></fa-icon>
           </th>
           <th scope="col"></th>
         </tr>
@@ -158,8 +161,8 @@
           <td>{{ order.awb }}</td>
           <td>{{ order.manifestId }}</td>
           <td>
-            <div *ngIf="order.product">
-              <a [routerLink]="['/product', order.product?.id, 'view']">{{ order.product?.name }}</a>
+            <div *ngIf="order.buyerDetails">
+              <a [routerLink]="['/order-buyer-details', order.buyerDetails?.id, 'view']">{{ order.buyerDetails?.id }}</a>
             </div>
           </td>
           <td>
@@ -170,6 +173,11 @@
           <td>
             <div *ngIf="order.pickupaddress">
               <a [routerLink]="['/pickup-address', order.pickupaddress?.id, 'view']">{{ order.pickupaddress?.nickName }}</a>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="order.order">
+              <a [routerLink]="['/wallet', order.order?.id, 'view']">{{ order.order?.awb }}</a>
             </div>
           </td>
           <td class="text-right">
