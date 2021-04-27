@@ -169,13 +169,16 @@ enum OrderStatus{
 }
 
 relationship OneToOne{
-    OrderBuyerDetails{order} to Order{buyerDetails}
+    Order{buyerDetails} to OrderBuyerDetails{order} 
 }
 
+
+relationship ManyToMany {
+	Product{category} to Category{category(name)}
+    Order{product(name)} to Product{order}
+}
 relationship OneToMany {
     Category to Category{parent(name)}
-    Product to Category{category(name)}
-    Product to Order{product(name)}
     PaymentMethod to Order{payment(name)}
     PickupAddress to Order{pickupaddress(nickName)}
     CourierCompany to Manifest{courier}
@@ -183,7 +186,7 @@ relationship OneToMany {
     ReasonEscalation to Escalation{reason}
     ReturnLabel to ReturnReason{label(title)}
     Order to ShipmentActivity{order}
-    Order to Wallet{order(awb)}
+    Wallet to Order{order(awb)}
     Wallet to Transaction{wallet}
    
 }
