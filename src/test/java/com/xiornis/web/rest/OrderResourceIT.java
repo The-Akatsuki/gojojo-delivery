@@ -2,6 +2,7 @@ package com.xiornis.web.rest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -12,14 +13,20 @@ import com.xiornis.domain.enumeration.OrderType;
 import com.xiornis.repository.OrderRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicLong;
 import javax.persistence.EntityManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -29,12 +36,13 @@ import org.springframework.transaction.annotation.Transactional;
  * Integration tests for the {@link OrderResource} REST controller.
  */
 @IntegrationTest
+@ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
 @WithMockUser
 class OrderResourceIT {
 
-    private static final String DEFAULT_ORDER_ID = "AAAAAAAAAA";
-    private static final String UPDATED_ORDER_ID = "BBBBBBBBBB";
+    private static final String DEFAULT_ORDER_NUMBER = "AAAAAAAAAA";
+    private static final String UPDATED_ORDER_NUMBER = "BBBBBBBBBB";
 
     private static final String DEFAULT_REFERENCE_ID = "AAAAAAAAAA";
     private static final String UPDATED_REFERENCE_ID = "BBBBBBBBBB";
@@ -123,6 +131,9 @@ class OrderResourceIT {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Mock
+    private OrderRepository orderRepositoryMock;
+
     @Autowired
     private EntityManager em;
 
@@ -139,7 +150,7 @@ class OrderResourceIT {
      */
     public static Order createEntity(EntityManager em) {
         Order order = new Order()
-            .orderId(DEFAULT_ORDER_ID)
+            .orderNumber(DEFAULT_ORDER_NUMBER)
             .referenceId(DEFAULT_REFERENCE_ID)
             .orderType(DEFAULT_ORDER_TYPE)
             .orderStatus(DEFAULT_ORDER_STATUS)
@@ -177,7 +188,7 @@ class OrderResourceIT {
      */
     public static Order createUpdatedEntity(EntityManager em) {
         Order order = new Order()
-            .orderId(UPDATED_ORDER_ID)
+            .orderNumber(UPDATED_ORDER_NUMBER)
             .referenceId(UPDATED_REFERENCE_ID)
             .orderType(UPDATED_ORDER_TYPE)
             .orderStatus(UPDATED_ORDER_STATUS)
@@ -225,7 +236,7 @@ class OrderResourceIT {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeCreate + 1);
         Order testOrder = orderList.get(orderList.size() - 1);
-        assertThat(testOrder.getOrderId()).isEqualTo(DEFAULT_ORDER_ID);
+        assertThat(testOrder.getOrderNumber()).isEqualTo(DEFAULT_ORDER_NUMBER);
         assertThat(testOrder.getReferenceId()).isEqualTo(DEFAULT_REFERENCE_ID);
         assertThat(testOrder.getOrderType()).isEqualTo(DEFAULT_ORDER_TYPE);
         assertThat(testOrder.getOrderStatus()).isEqualTo(DEFAULT_ORDER_STATUS);
@@ -284,7 +295,7 @@ class OrderResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(order.getId().intValue())))
-            .andExpect(jsonPath("$.[*].orderId").value(hasItem(DEFAULT_ORDER_ID)))
+            .andExpect(jsonPath("$.[*].orderNumber").value(hasItem(DEFAULT_ORDER_NUMBER)))
             .andExpect(jsonPath("$.[*].referenceId").value(hasItem(DEFAULT_REFERENCE_ID)))
             .andExpect(jsonPath("$.[*].orderType").value(hasItem(DEFAULT_ORDER_TYPE.toString())))
             .andExpect(jsonPath("$.[*].orderStatus").value(hasItem(DEFAULT_ORDER_STATUS.toString())))
@@ -313,6 +324,24 @@ class OrderResourceIT {
             .andExpect(jsonPath("$.[*].manifestId").value(hasItem(DEFAULT_MANIFEST_ID)));
     }
 
+    @SuppressWarnings({ "unchecked" })
+    void getAllOrdersWithEagerRelationshipsIsEnabled() throws Exception {
+        when(orderRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restOrderMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(orderRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
+    @SuppressWarnings({ "unchecked" })
+    void getAllOrdersWithEagerRelationshipsIsNotEnabled() throws Exception {
+        when(orderRepositoryMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+
+        restOrderMockMvc.perform(get(ENTITY_API_URL + "?eagerload=true")).andExpect(status().isOk());
+
+        verify(orderRepositoryMock, times(1)).findAllWithEagerRelationships(any());
+    }
+
     @Test
     @Transactional
     void getOrder() throws Exception {
@@ -325,7 +354,7 @@ class OrderResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(order.getId().intValue()))
-            .andExpect(jsonPath("$.orderId").value(DEFAULT_ORDER_ID))
+            .andExpect(jsonPath("$.orderNumber").value(DEFAULT_ORDER_NUMBER))
             .andExpect(jsonPath("$.referenceId").value(DEFAULT_REFERENCE_ID))
             .andExpect(jsonPath("$.orderType").value(DEFAULT_ORDER_TYPE.toString()))
             .andExpect(jsonPath("$.orderStatus").value(DEFAULT_ORDER_STATUS.toString()))
@@ -374,7 +403,7 @@ class OrderResourceIT {
         // Disconnect from session so that the updates on updatedOrder are not directly saved in db
         em.detach(updatedOrder);
         updatedOrder
-            .orderId(UPDATED_ORDER_ID)
+            .orderNumber(UPDATED_ORDER_NUMBER)
             .referenceId(UPDATED_REFERENCE_ID)
             .orderType(UPDATED_ORDER_TYPE)
             .orderStatus(UPDATED_ORDER_STATUS)
@@ -414,7 +443,7 @@ class OrderResourceIT {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate);
         Order testOrder = orderList.get(orderList.size() - 1);
-        assertThat(testOrder.getOrderId()).isEqualTo(UPDATED_ORDER_ID);
+        assertThat(testOrder.getOrderNumber()).isEqualTo(UPDATED_ORDER_NUMBER);
         assertThat(testOrder.getReferenceId()).isEqualTo(UPDATED_REFERENCE_ID);
         assertThat(testOrder.getOrderType()).isEqualTo(UPDATED_ORDER_TYPE);
         assertThat(testOrder.getOrderStatus()).isEqualTo(UPDATED_ORDER_STATUS);
@@ -542,7 +571,7 @@ class OrderResourceIT {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate);
         Order testOrder = orderList.get(orderList.size() - 1);
-        assertThat(testOrder.getOrderId()).isEqualTo(DEFAULT_ORDER_ID);
+        assertThat(testOrder.getOrderNumber()).isEqualTo(DEFAULT_ORDER_NUMBER);
         assertThat(testOrder.getReferenceId()).isEqualTo(DEFAULT_REFERENCE_ID);
         assertThat(testOrder.getOrderType()).isEqualTo(UPDATED_ORDER_TYPE);
         assertThat(testOrder.getOrderStatus()).isEqualTo(UPDATED_ORDER_STATUS);
@@ -584,7 +613,7 @@ class OrderResourceIT {
         partialUpdatedOrder.setId(order.getId());
 
         partialUpdatedOrder
-            .orderId(UPDATED_ORDER_ID)
+            .orderNumber(UPDATED_ORDER_NUMBER)
             .referenceId(UPDATED_REFERENCE_ID)
             .orderType(UPDATED_ORDER_TYPE)
             .orderStatus(UPDATED_ORDER_STATUS)
@@ -624,7 +653,7 @@ class OrderResourceIT {
         List<Order> orderList = orderRepository.findAll();
         assertThat(orderList).hasSize(databaseSizeBeforeUpdate);
         Order testOrder = orderList.get(orderList.size() - 1);
-        assertThat(testOrder.getOrderId()).isEqualTo(UPDATED_ORDER_ID);
+        assertThat(testOrder.getOrderNumber()).isEqualTo(UPDATED_ORDER_NUMBER);
         assertThat(testOrder.getReferenceId()).isEqualTo(UPDATED_REFERENCE_ID);
         assertThat(testOrder.getOrderType()).isEqualTo(UPDATED_ORDER_TYPE);
         assertThat(testOrder.getOrderStatus()).isEqualTo(UPDATED_ORDER_STATUS);

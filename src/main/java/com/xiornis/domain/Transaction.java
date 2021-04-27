@@ -41,7 +41,7 @@ public class Transaction implements Serializable {
     private TransactionType transactionType;
 
     @ManyToOne
-    @JsonIgnoreProperties(value = { "transactions", "order" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "orders", "transactions" }, allowSetters = true)
     private Wallet wallet;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

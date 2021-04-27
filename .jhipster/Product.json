@@ -32,16 +32,18 @@
   ],
   "relationships": [
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-many",
       "otherEntityName": "category",
-      "otherEntityRelationshipName": "category",
-      "relationshipName": "category"
+      "otherEntityRelationshipName": "product",
+      "relationshipName": "category",
+      "ownerSide": true
     },
     {
-      "relationshipType": "one-to-many",
+      "relationshipType": "many-to-many",
       "otherEntityName": "order",
       "otherEntityRelationshipName": "product",
-      "relationshipName": "order"
+      "relationshipName": "order",
+      "ownerSide": false
     }
   ],
   "entityTableName": "product",

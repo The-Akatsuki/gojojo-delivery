@@ -25,8 +25,8 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "order_id")
-    private String orderId;
+    @Column(name = "order_number")
+    private String orderNumber;
 
     @Column(name = "reference_id")
     private String referenceId;
@@ -108,23 +108,25 @@ public class Order implements Serializable {
     @Column(name = "manifest_id")
     private String manifestId;
 
+    @JsonIgnoreProperties(value = { "order" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private OrderBuyerDetails buyerDetails;
+
     @OneToMany(mappedBy = "order")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(value = { "order" }, allowSetters = true)
     private Set<ShipmentActivity> shipmentActivities = new HashSet<>();
 
-    @OneToMany(mappedBy = "order")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "transactions", "order" }, allowSetters = true)
-    private Set<Wallet> wallets = new HashSet<>();
-
-    @JsonIgnoreProperties(value = { "order" }, allowSetters = true)
-    @OneToOne(mappedBy = "order")
-    private OrderBuyerDetails buyerDetails;
-
-    @ManyToOne
+    @JoinTable(
+        name = "rel_jhi_order__product",
+        joinColumns = @JoinColumn(name = "jhi_order_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     @JsonIgnoreProperties(value = { "categories", "orders" }, allowSetters = true)
-    private Product product;
+    private Set<Product> products = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
@@ -133,6 +135,10 @@ public class Order implements Serializable {
     @ManyToOne
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
     private PickupAddress pickupaddress;
+
+    @ManyToOne
+    @JsonIgnoreProperties(value = { "orders", "transactions" }, allowSetters = true)
+    private Wallet order;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -148,17 +154,17 @@ public class Order implements Serializable {
         return this;
     }
 
-    public String getOrderId() {
-        return this.orderId;
+    public String getOrderNumber() {
+        return this.orderNumber;
     }
 
-    public Order orderId(String orderId) {
-        this.orderId = orderId;
+    public Order orderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
         return this;
     }
 
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getReferenceId() {
@@ -499,6 +505,19 @@ public class Order implements Serializable {
         this.manifestId = manifestId;
     }
 
+    public OrderBuyerDetails getBuyerDetails() {
+        return this.buyerDetails;
+    }
+
+    public Order buyerDetails(OrderBuyerDetails orderBuyerDetails) {
+        this.setBuyerDetails(orderBuyerDetails);
+        return this;
+    }
+
+    public void setBuyerDetails(OrderBuyerDetails orderBuyerDetails) {
+        this.buyerDetails = orderBuyerDetails;
+    }
+
     public Set<ShipmentActivity> getShipmentActivities() {
         return this.shipmentActivities;
     }
@@ -530,67 +549,29 @@ public class Order implements Serializable {
         this.shipmentActivities = shipmentActivities;
     }
 
-    public Set<Wallet> getWallets() {
-        return this.wallets;
+    public Set<Product> getProducts() {
+        return this.products;
     }
 
-    public Order wallets(Set<Wallet> wallets) {
-        this.setWallets(wallets);
+    public Order products(Set<Product> products) {
+        this.setProducts(products);
         return this;
     }
 
-    public Order addWallet(Wallet wallet) {
-        this.wallets.add(wallet);
-        wallet.setOrder(this);
+    public Order addProduct(Product product) {
+        this.products.add(product);
+        product.getOrders().add(this);
         return this;
     }
 
-    public Order removeWallet(Wallet wallet) {
-        this.wallets.remove(wallet);
-        wallet.setOrder(null);
+    public Order removeProduct(Product product) {
+        this.products.remove(product);
+        product.getOrders().remove(this);
         return this;
     }
 
-    public void setWallets(Set<Wallet> wallets) {
-        if (this.wallets != null) {
-            this.wallets.forEach(i -> i.setOrder(null));
-        }
-        if (wallets != null) {
-            wallets.forEach(i -> i.setOrder(this));
-        }
-        this.wallets = wallets;
-    }
-
-    public OrderBuyerDetails getBuyerDetails() {
-        return this.buyerDetails;
-    }
-
-    public Order buyerDetails(OrderBuyerDetails orderBuyerDetails) {
-        this.setBuyerDetails(orderBuyerDetails);
-        return this;
-    }
-
-    public void setBuyerDetails(OrderBuyerDetails orderBuyerDetails) {
-        if (this.buyerDetails != null) {
-            this.buyerDetails.setOrder(null);
-        }
-        if (buyerDetails != null) {
-            buyerDetails.setOrder(this);
-        }
-        this.buyerDetails = orderBuyerDetails;
-    }
-
-    public Product getProduct() {
-        return this.product;
-    }
-
-    public Order product(Product product) {
-        this.setProduct(product);
-        return this;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProducts(Set<Product> products) {
+        this.products = products;
     }
 
     public PaymentMethod getPayment() {
@@ -619,6 +600,19 @@ public class Order implements Serializable {
         this.pickupaddress = pickupAddress;
     }
 
+    public Wallet getOrder() {
+        return this.order;
+    }
+
+    public Order order(Wallet wallet) {
+        this.setOrder(wallet);
+        return this;
+    }
+
+    public void setOrder(Wallet wallet) {
+        this.order = wallet;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -643,7 +637,7 @@ public class Order implements Serializable {
     public String toString() {
         return "Order{" +
             "id=" + getId() +
-            ", orderId='" + getOrderId() + "'" +
+            ", orderNumber='" + getOrderNumber() + "'" +
             ", referenceId='" + getReferenceId() + "'" +
             ", orderType='" + getOrderType() + "'" +
             ", orderStatus='" + getOrderStatus() + "'" +

@@ -43,15 +43,20 @@ public class Product implements Serializable {
     @Column(name = "discount")
     private Double discount;
 
-    @OneToMany(mappedBy = "category")
+    @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "categories", "parent", "category" }, allowSetters = true)
+    @JoinTable(
+        name = "rel_product__category",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    @JsonIgnoreProperties(value = { "categories", "parent", "products" }, allowSetters = true)
     private Set<Category> categories = new HashSet<>();
 
-    @OneToMany(mappedBy = "product")
+    @ManyToMany(mappedBy = "products")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "shipmentActivities", "wallets", "buyerDetails", "product", "payment", "pickupaddress" },
+        value = { "buyerDetails", "shipmentActivities", "products", "payment", "pickupaddress", "order" },
         allowSetters = true
     )
     private Set<Order> orders = new HashSet<>();
@@ -172,23 +177,17 @@ public class Product implements Serializable {
 
     public Product addCategory(Category category) {
         this.categories.add(category);
-        category.setCategory(this);
+        category.getProducts().add(this);
         return this;
     }
 
     public Product removeCategory(Category category) {
         this.categories.remove(category);
-        category.setCategory(null);
+        category.getProducts().remove(this);
         return this;
     }
 
     public void setCategories(Set<Category> categories) {
-        if (this.categories != null) {
-            this.categories.forEach(i -> i.setCategory(null));
-        }
-        if (categories != null) {
-            categories.forEach(i -> i.setCategory(this));
-        }
         this.categories = categories;
     }
 
@@ -203,22 +202,22 @@ public class Product implements Serializable {
 
     public Product addOrder(Order order) {
         this.orders.add(order);
-        order.setProduct(this);
+        order.getProducts().add(this);
         return this;
     }
 
     public Product removeOrder(Order order) {
         this.orders.remove(order);
-        order.setProduct(null);
+        order.getProducts().remove(this);
         return this;
     }
 
     public void setOrders(Set<Order> orders) {
         if (this.orders != null) {
-            this.orders.forEach(i -> i.setProduct(null));
+            this.orders.forEach(i -> i.removeProduct(this));
         }
         if (orders != null) {
-            orders.forEach(i -> i.setProduct(this));
+            orders.forEach(i -> i.addProduct(this));
         }
         this.orders = orders;
     }

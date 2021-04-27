@@ -8,8 +8,6 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -128,8 +126,8 @@ public class OrderResource {
             .findById(order.getId())
             .map(
                 existingOrder -> {
-                    if (order.getOrderId() != null) {
-                        existingOrder.setOrderId(order.getOrderId());
+                    if (order.getOrderNumber() != null) {
+                        existingOrder.setOrderNumber(order.getOrderNumber());
                     }
                     if (order.getReferenceId() != null) {
                         existingOrder.setReferenceId(order.getReferenceId());
@@ -225,23 +223,21 @@ public class OrderResource {
      * {@code GET  /orders} : get all the orders.
      *
      * @param pageable the pagination information.
-     * @param filter the filter of the request.
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orders in body.
      */
     @GetMapping("/orders")
-    public ResponseEntity<List<Order>> getAllOrders(Pageable pageable, @RequestParam(required = false) String filter) {
-        if ("buyerdetails-is-null".equals(filter)) {
-            log.debug("REST request to get all Orders where buyerDetails is null");
-            return new ResponseEntity<>(
-                StreamSupport
-                    .stream(orderRepository.findAll().spliterator(), false)
-                    .filter(order -> order.getBuyerDetails() == null)
-                    .collect(Collectors.toList()),
-                HttpStatus.OK
-            );
-        }
+    public ResponseEntity<List<Order>> getAllOrders(
+        Pageable pageable,
+        @RequestParam(required = false, defaultValue = "false") boolean eagerload
+    ) {
         log.debug("REST request to get a page of Orders");
-        Page<Order> page = orderRepository.findAll(pageable);
+        Page<Order> page;
+        if (eagerload) {
+            page = orderRepository.findAllWithEagerRelationships(pageable);
+        } else {
+            page = orderRepository.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -255,7 +251,7 @@ public class OrderResource {
     @GetMapping("/orders/{id}")
     public ResponseEntity<Order> getOrder(@PathVariable Long id) {
         log.debug("REST request to get Order : {}", id);
-        Optional<Order> order = orderRepository.findById(id);
+        Optional<Order> order = orderRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(order);
     }
 

@@ -14,8 +14,15 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.orderId" for="field_orderId">Order Id</label>
-          <input type="text" class="form-control" name="orderId" id="field_orderId" data-cy="orderId" formControlName="orderId" />
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.orderNumber" for="field_orderNumber">Order Number</label>
+          <input
+            type="text"
+            class="form-control"
+            name="orderNumber"
+            id="field_orderNumber"
+            data-cy="orderNumber"
+            formControlName="orderNumber"
+          />
         </div>
 
         <div class="form-group">
@@ -260,11 +267,29 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.product" for="field_product">Product</label>
-          <select class="form-control" id="field_product" data-cy="product" name="product" formControlName="product">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.buyerDetails" for="field_buyerDetails"
+            >Buyer Details</label
+          >
+          <select class="form-control" id="field_buyerDetails" data-cy="buyerDetails" name="buyerDetails" formControlName="buyerDetails">
             <option [ngValue]="null"></option>
             <option
-              [ngValue]="productOption.id === editForm.get('product')!.value?.id ? editForm.get('product')!.value : productOption"
+              [ngValue]="
+                orderBuyerDetailsOption.id === editForm.get('buyerDetails')!.value?.id
+                  ? editForm.get('buyerDetails')!.value
+                  : orderBuyerDetailsOption
+              "
+              *ngFor="let orderBuyerDetailsOption of buyerDetailsCollection; trackBy: trackOrderBuyerDetailsById"
+            >
+              {{ orderBuyerDetailsOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label jhiTranslate="gojojoDeliveryApp.order.product" for="field_products">Product</label>
+          <select class="form-control" id="field_products" data-cy="product" multiple name="products" formControlName="products">
+            <option
+              [ngValue]="getSelectedProduct(productOption, editForm.get('products')!.value)"
               *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
             >
               {{ productOption.name }}
@@ -308,6 +333,19 @@
               *ngFor="let pickupAddressOption of pickupAddressesSharedCollection; trackBy: trackPickupAddressById"
             >
               {{ pickupAddressOption.nickName }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="gojojoDeliveryApp.order.order" for="field_order">Order</label>
+          <select class="form-control" id="field_order" data-cy="order" name="order" formControlName="order">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="walletOption.id === editForm.get('order')!.value?.id ? editForm.get('order')!.value : walletOption"
+              *ngFor="let walletOption of walletsSharedCollection; trackBy: trackWalletById"
+            >
+              {{ walletOption.awb }}
             </option>
           </select>
         </div>

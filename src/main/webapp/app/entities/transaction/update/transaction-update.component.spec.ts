@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Wallet query and add missing value', () => {
         const transaction: ITransaction = { id: 456 };
-        const wallet: IWallet = { id: 61420 };
+        const wallet: IWallet = { id: 98303 };
         transaction.wallet = wallet;
 
-        const walletCollection: IWallet[] = [{ id: 47193 }];
+        const walletCollection: IWallet[] = [{ id: 22122 }];
         spyOn(walletService, 'query').and.returnValue(of(new HttpResponse({ body: walletCollection })));
         const additionalWallets = [wallet];
         const expectedCollection: IWallet[] = [...additionalWallets, ...walletCollection];
@@ -61,7 +61,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const transaction: ITransaction = { id: 456 };
-        const wallet: IWallet = { id: 16431 };
+        const wallet: IWallet = { id: 77218 };
         transaction.wallet = wallet;
 
         activatedRoute.data = of({ transaction });

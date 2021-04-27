@@ -51,7 +51,6 @@
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billCity">Bill City</span></th>
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billState">Bill State</span></th>
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.billCountry">Bill Country</span></th>
-          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.orderBuyerDetails.order">Order</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -78,11 +77,6 @@
           <td>{{ orderBuyerDetails.billCity }}</td>
           <td>{{ orderBuyerDetails.billState }}</td>
           <td>{{ orderBuyerDetails.billCountry }}</td>
-          <td>
-            <div *ngIf="orderBuyerDetails.order">
-              <a [routerLink]="['/order', orderBuyerDetails.order?.id, 'view']">{{ orderBuyerDetails.order?.id }}</a>
-            </div>
-          </td>
           <td class="text-right">
             <div class="btn-group">
               <button

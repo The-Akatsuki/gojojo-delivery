@@ -80,7 +80,7 @@
       "otherEntityName": "order",
       "otherEntityRelationshipName": "buyerDetails",
       "relationshipName": "order",
-      "ownerSide": true
+      "ownerSide": false
     }
   ],
   "entityTableName": "order_buyer_details",

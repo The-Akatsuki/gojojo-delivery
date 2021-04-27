@@ -46,10 +46,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call CourierCompany query and add missing value', () => {
         const manifest: IManifest = { id: 456 };
-        const courier: ICourierCompany = { id: 98849 };
+        const courier: ICourierCompany = { id: 52461 };
         manifest.courier = courier;
 
-        const courierCompanyCollection: ICourierCompany[] = [{ id: 19778 }];
+        const courierCompanyCollection: ICourierCompany[] = [{ id: 13774 }];
         spyOn(courierCompanyService, 'query').and.returnValue(of(new HttpResponse({ body: courierCompanyCollection })));
         const additionalCourierCompanies = [courier];
         const expectedCollection: ICourierCompany[] = [...additionalCourierCompanies, ...courierCompanyCollection];
@@ -68,10 +68,10 @@ describe('Component Tests', () => {
 
       it('Should call Escalation query and add missing value', () => {
         const manifest: IManifest = { id: 456 };
-        const escalation: IEscalation = { id: 16669 };
+        const escalation: IEscalation = { id: 77544 };
         manifest.escalation = escalation;
 
-        const escalationCollection: IEscalation[] = [{ id: 73998 }];
+        const escalationCollection: IEscalation[] = [{ id: 38916 }];
         spyOn(escalationService, 'query').and.returnValue(of(new HttpResponse({ body: escalationCollection })));
         const additionalEscalations = [escalation];
         const expectedCollection: IEscalation[] = [...additionalEscalations, ...escalationCollection];
@@ -87,9 +87,9 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const manifest: IManifest = { id: 456 };
-        const courier: ICourierCompany = { id: 56716 };
+        const courier: ICourierCompany = { id: 683 };
         manifest.courier = courier;
-        const escalation: IEscalation = { id: 327 };
+        const escalation: IEscalation = { id: 88444 };
         manifest.escalation = escalation;
 
         activatedRoute.data = of({ manifest });

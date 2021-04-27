@@ -7,7 +7,7 @@
         Added the constraints for entity Manifest.
     -->
     <changeSet id="20210329143056-2" author="jhipster">
-        
+
         <addForeignKeyConstraint baseColumnNames="courier_id"
                                  baseTableName="manifest"
                                  constraintName="fk_manifest__courier_id"
@@ -19,6 +19,5 @@
                                  constraintName="fk_manifest__escalation_id"
                                  referencedColumnNames="id"
                                  referencedTableName="escalation"/>
-
     </changeSet>
 </databaseChangeLog>
