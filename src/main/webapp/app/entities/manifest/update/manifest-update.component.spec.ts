@@ -9,6 +9,8 @@ import { of, Subject } from 'rxjs';
 
 import { ManifestService } from '../service/manifest.service';
 import { IManifest, Manifest } from '../manifest.model';
+import { IOrder } from 'app/entities/order/order.model';
+import { OrderService } from 'app/entities/order/service/order.service';
 import { ICourierCompany } from 'app/entities/courier-company/courier-company.model';
 import { CourierCompanyService } from 'app/entities/courier-company/service/courier-company.service';
 import { IEscalation } from 'app/entities/escalation/escalation.model';
@@ -22,6 +24,7 @@ describe('Component Tests', () => {
     let fixture: ComponentFixture<ManifestUpdateComponent>;
     let activatedRoute: ActivatedRoute;
     let manifestService: ManifestService;
+    let orderService: OrderService;
     let courierCompanyService: CourierCompanyService;
     let escalationService: EscalationService;
 
@@ -37,6 +40,7 @@ describe('Component Tests', () => {
       fixture = TestBed.createComponent(ManifestUpdateComponent);
       activatedRoute = TestBed.inject(ActivatedRoute);
       manifestService = TestBed.inject(ManifestService);
+      orderService = TestBed.inject(OrderService);
       courierCompanyService = TestBed.inject(CourierCompanyService);
       escalationService = TestBed.inject(EscalationService);
 
@@ -44,6 +48,24 @@ describe('Component Tests', () => {
     });
 
     describe('ngOnInit', () => {
+      it('Should call order query and add missing value', () => {
+        const manifest: IManifest = { id: 456 };
+        const order: IOrder = { id: 96360 };
+        manifest.order = order;
+
+        const orderCollection: IOrder[] = [{ id: 61547 }];
+        spyOn(orderService, 'query').and.returnValue(of(new HttpResponse({ body: orderCollection })));
+        const expectedCollection: IOrder[] = [order, ...orderCollection];
+        spyOn(orderService, 'addOrderToCollectionIfMissing').and.returnValue(expectedCollection);
+
+        activatedRoute.data = of({ manifest });
+        comp.ngOnInit();
+
+        expect(orderService.query).toHaveBeenCalled();
+        expect(orderService.addOrderToCollectionIfMissing).toHaveBeenCalledWith(orderCollection, order);
+        expect(comp.ordersCollection).toEqual(expectedCollection);
+      });
+
       it('Should call CourierCompany query and add missing value', () => {
         const manifest: IManifest = { id: 456 };
         const courier: ICourierCompany = { id: 52461 };
@@ -87,6 +109,8 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const manifest: IManifest = { id: 456 };
+        const order: IOrder = { id: 80077 };
+        manifest.order = order;
         const courier: ICourierCompany = { id: 683 };
         manifest.courier = courier;
         const escalation: IEscalation = { id: 88444 };
@@ -96,6 +120,7 @@ describe('Component Tests', () => {
         comp.ngOnInit();
 
         expect(comp.editForm.value).toEqual(expect.objectContaining(manifest));
+        expect(comp.ordersCollection).toContain(order);
         expect(comp.courierCompaniesSharedCollection).toContain(courier);
         expect(comp.escalationsSharedCollection).toContain(escalation);
       });
@@ -166,6 +191,14 @@ describe('Component Tests', () => {
     });
 
     describe('Tracking relationships identifiers', () => {
+      describe('trackOrderById', () => {
+        it('Should return tracked Order primary key', () => {
+          const entity = { id: 123 };
+          const trackResult = comp.trackOrderById(0, entity);
+          expect(trackResult).toEqual(entity.id);
+        });
+      });
+
       describe('trackCourierCompanyById', () => {
         it('Should return tracked CourierCompany primary key', () => {
           const entity = { id: 123 };

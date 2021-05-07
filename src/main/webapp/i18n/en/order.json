@@ -48,6 +48,7 @@
       "buyerDetails": "Buyer Details",
       "shipmentActivity": "Shipment Activity",
       "product": "Product",
+      "manifest": "Manifest",
       "payment": "Payment",
       "pickupaddress": "Pickupaddress",
       "order": "Order"

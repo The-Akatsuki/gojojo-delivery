@@ -2,6 +2,7 @@ import * as dayjs from 'dayjs';
 import { IOrderBuyerDetails } from 'app/entities/order-buyer-details/order-buyer-details.model';
 import { IShipmentActivity } from 'app/entities/shipment-activity/shipment-activity.model';
 import { IProduct } from 'app/entities/product/product.model';
+import { IManifest } from 'app/entities/manifest/manifest.model';
 import { IPaymentMethod } from 'app/entities/payment-method/payment-method.model';
 import { IPickupAddress } from 'app/entities/pickup-address/pickup-address.model';
 import { IWallet } from 'app/entities/wallet/wallet.model';
@@ -40,6 +41,7 @@ export interface IOrder {
   buyerDetails?: IOrderBuyerDetails | null;
   shipmentActivities?: IShipmentActivity[] | null;
   products?: IProduct[] | null;
+  manifest?: IManifest | null;
   payment?: IPaymentMethod | null;
   pickupaddress?: IPickupAddress | null;
   order?: IWallet | null;
@@ -78,6 +80,7 @@ export class Order implements IOrder {
     public buyerDetails?: IOrderBuyerDetails | null,
     public shipmentActivities?: IShipmentActivity[] | null,
     public products?: IProduct[] | null,
+    public manifest?: IManifest | null,
     public payment?: IPaymentMethod | null,
     public pickupaddress?: IPickupAddress | null,
     public order?: IWallet | null

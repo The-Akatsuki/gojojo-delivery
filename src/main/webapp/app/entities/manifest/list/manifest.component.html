@@ -40,6 +40,7 @@
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.remarks">Remarks</span></th>
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.pickupReferenceNumber">Pickup Reference Number</span></th>
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.status">Status</span></th>
+          <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.order">Order</span></th>
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.courier">Courier</span></th>
           <th scope="col"><span jhiTranslate="gojojoDeliveryApp.manifest.escalation">Escalation</span></th>
           <th scope="col"></th>
@@ -57,6 +58,11 @@
           <td>{{ manifest.remarks }}</td>
           <td>{{ manifest.pickupReferenceNumber }}</td>
           <td>{{ manifest.status }}</td>
+          <td>
+            <div *ngIf="manifest.order">
+              <a [routerLink]="['/order', manifest.order?.id, 'view']">{{ manifest.order?.id }}</a>
+            </div>
+          </td>
           <td>
             <div *ngIf="manifest.courier">
               <a [routerLink]="['/courier-company', manifest.courier?.id, 'view']">{{ manifest.courier?.id }}</a>

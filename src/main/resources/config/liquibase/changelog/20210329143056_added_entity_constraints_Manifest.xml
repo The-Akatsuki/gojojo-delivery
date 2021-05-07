@@ -8,6 +8,12 @@
     -->
     <changeSet id="20210329143056-2" author="jhipster">
 
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="manifest"
+                                 constraintName="fk_manifest__order_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_order"/>
+
         <addForeignKeyConstraint baseColumnNames="courier_id"
                                  baseTableName="manifest"
                                  constraintName="fk_manifest__courier_id"

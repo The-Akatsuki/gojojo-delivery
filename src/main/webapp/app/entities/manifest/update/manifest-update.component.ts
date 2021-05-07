@@ -10,6 +10,8 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { IManifest, Manifest } from '../manifest.model';
 import { ManifestService } from '../service/manifest.service';
+import { IOrder } from 'app/entities/order/order.model';
+import { OrderService } from 'app/entities/order/service/order.service';
 import { ICourierCompany } from 'app/entities/courier-company/courier-company.model';
 import { CourierCompanyService } from 'app/entities/courier-company/service/courier-company.service';
 import { IEscalation } from 'app/entities/escalation/escalation.model';
@@ -22,6 +24,7 @@ import { EscalationService } from 'app/entities/escalation/service/escalation.se
 export class ManifestUpdateComponent implements OnInit {
   isSaving = false;
 
+  ordersCollection: IOrder[] = [];
   courierCompaniesSharedCollection: ICourierCompany[] = [];
   escalationsSharedCollection: IEscalation[] = [];
 
@@ -34,12 +37,14 @@ export class ManifestUpdateComponent implements OnInit {
     remarks: [],
     pickupReferenceNumber: [],
     status: [],
+    order: [],
     courier: [],
     escalation: [],
   });
 
   constructor(
     protected manifestService: ManifestService,
+    protected orderService: OrderService,
     protected courierCompanyService: CourierCompanyService,
     protected escalationService: EscalationService,
     protected activatedRoute: ActivatedRoute,
@@ -71,6 +76,10 @@ export class ManifestUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.manifestService.create(manifest));
     }
+  }
+
+  trackOrderById(index: number, item: IOrder): number {
+    return item.id!;
   }
 
   trackCourierCompanyById(index: number, item: ICourierCompany): number {
@@ -110,10 +119,12 @@ export class ManifestUpdateComponent implements OnInit {
       remarks: manifest.remarks,
       pickupReferenceNumber: manifest.pickupReferenceNumber,
       status: manifest.status,
+      order: manifest.order,
       courier: manifest.courier,
       escalation: manifest.escalation,
     });
 
+    this.ordersCollection = this.orderService.addOrderToCollectionIfMissing(this.ordersCollection, manifest.order);
     this.courierCompaniesSharedCollection = this.courierCompanyService.addCourierCompanyToCollectionIfMissing(
       this.courierCompaniesSharedCollection,
       manifest.courier
@@ -125,6 +136,12 @@ export class ManifestUpdateComponent implements OnInit {
   }
 
   protected loadRelationshipsOptions(): void {
+    this.orderService
+      .query({ filter: 'manifest-is-null' })
+      .pipe(map((res: HttpResponse<IOrder[]>) => res.body ?? []))
+      .pipe(map((orders: IOrder[]) => this.orderService.addOrderToCollectionIfMissing(orders, this.editForm.get('order')!.value)))
+      .subscribe((orders: IOrder[]) => (this.ordersCollection = orders));
+
     this.courierCompanyService
       .query()
       .pipe(map((res: HttpResponse<ICourierCompany[]>) => res.body ?? []))
@@ -159,6 +176,7 @@ export class ManifestUpdateComponent implements OnInit {
       remarks: this.editForm.get(['remarks'])!.value,
       pickupReferenceNumber: this.editForm.get(['pickupReferenceNumber'])!.value,
       status: this.editForm.get(['status'])!.value,
+      order: this.editForm.get(['order'])!.value,
       courier: this.editForm.get(['courier'])!.value,
       escalation: this.editForm.get(['escalation'])!.value,
     };

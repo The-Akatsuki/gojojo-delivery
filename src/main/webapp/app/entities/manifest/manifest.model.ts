@@ -1,4 +1,5 @@
 import * as dayjs from 'dayjs';
+import { IOrder } from 'app/entities/order/order.model';
 import { ICourierCompany } from 'app/entities/courier-company/courier-company.model';
 import { IEscalation } from 'app/entities/escalation/escalation.model';
 
@@ -11,6 +12,7 @@ export interface IManifest {
   remarks?: string | null;
   pickupReferenceNumber?: string | null;
   status?: string | null;
+  order?: IOrder | null;
   courier?: ICourierCompany | null;
   escalation?: IEscalation | null;
 }
@@ -25,6 +27,7 @@ export class Manifest implements IManifest {
     public remarks?: string | null,
     public pickupReferenceNumber?: string | null,
     public status?: string | null,
+    public order?: IOrder | null,
     public courier?: ICourierCompany | null,
     public escalation?: IEscalation | null
   ) {}

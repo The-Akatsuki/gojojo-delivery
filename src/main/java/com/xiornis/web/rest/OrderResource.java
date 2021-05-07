@@ -8,6 +8,8 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -224,13 +226,25 @@ public class OrderResource {
      *
      * @param pageable the pagination information.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
+     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of orders in body.
      */
     @GetMapping("/orders")
     public ResponseEntity<List<Order>> getAllOrders(
         Pageable pageable,
+        @RequestParam(required = false) String filter,
         @RequestParam(required = false, defaultValue = "false") boolean eagerload
     ) {
+        if ("manifest-is-null".equals(filter)) {
+            log.debug("REST request to get all Orders where manifest is null");
+            return new ResponseEntity<>(
+                StreamSupport
+                    .stream(orderRepository.findAll().spliterator(), false)
+                    .filter(order -> order.getManifest() == null)
+                    .collect(Collectors.toList()),
+                HttpStatus.OK
+            );
+        }
         log.debug("REST request to get a page of Orders");
         Page<Order> page;
         if (eagerload) {

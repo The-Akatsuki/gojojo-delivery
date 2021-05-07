@@ -42,6 +42,14 @@ public class Manifest implements Serializable {
     @Column(name = "status")
     private String status;
 
+    @JsonIgnoreProperties(
+        value = { "buyerDetails", "shipmentActivities", "products", "manifest", "payment", "pickupaddress", "order" },
+        allowSetters = true
+    )
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Order order;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "manifests" }, allowSetters = true)
     private CourierCompany courier;
@@ -153,6 +161,19 @@ public class Manifest implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Order getOrder() {
+        return this.order;
+    }
+
+    public Manifest order(Order order) {
+        this.setOrder(order);
+        return this;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public CourierCompany getCourier() {

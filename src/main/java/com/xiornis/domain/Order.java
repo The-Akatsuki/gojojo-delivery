@@ -128,6 +128,10 @@ public class Order implements Serializable {
     @JsonIgnoreProperties(value = { "categories", "orders" }, allowSetters = true)
     private Set<Product> products = new HashSet<>();
 
+    @JsonIgnoreProperties(value = { "order", "courier", "escalation" }, allowSetters = true)
+    @OneToOne(mappedBy = "order")
+    private Manifest manifest;
+
     @ManyToOne
     @JsonIgnoreProperties(value = { "orders" }, allowSetters = true)
     private PaymentMethod payment;
@@ -572,6 +576,25 @@ public class Order implements Serializable {
 
     public void setProducts(Set<Product> products) {
         this.products = products;
+    }
+
+    public Manifest getManifest() {
+        return this.manifest;
+    }
+
+    public Order manifest(Manifest manifest) {
+        this.setManifest(manifest);
+        return this;
+    }
+
+    public void setManifest(Manifest manifest) {
+        if (this.manifest != null) {
+            this.manifest.setOrder(null);
+        }
+        if (manifest != null) {
+            manifest.setOrder(this);
+        }
+        this.manifest = manifest;
     }
 
     public PaymentMethod getPayment() {
