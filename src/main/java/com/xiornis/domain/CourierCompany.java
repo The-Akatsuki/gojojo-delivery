@@ -57,7 +57,7 @@ public class CourierCompany implements Serializable {
 
     @OneToMany(mappedBy = "courier")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "courier", "escalation" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "order", "courier", "escalation" }, allowSetters = true)
     private Set<Manifest> manifests = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

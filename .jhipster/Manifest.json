@@ -32,6 +32,13 @@
   ],
   "relationships": [
     {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "order",
+      "otherEntityRelationshipName": "manifest",
+      "relationshipName": "order",
+      "ownerSide": true
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "courierCompany",
       "otherEntityRelationshipName": "manifest",

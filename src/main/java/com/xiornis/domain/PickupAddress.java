@@ -64,7 +64,7 @@ public class PickupAddress implements Serializable {
     @OneToMany(mappedBy = "pickupaddress")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JsonIgnoreProperties(
-        value = { "buyerDetails", "shipmentActivities", "products", "payment", "pickupaddress", "order" },
+        value = { "buyerDetails", "shipmentActivities", "products", "manifest", "payment", "pickupaddress", "order" },
         allowSetters = true
     )
     private Set<Order> orders = new HashSet<>();

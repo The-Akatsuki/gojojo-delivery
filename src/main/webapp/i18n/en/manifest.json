@@ -25,6 +25,7 @@
       "remarks": "Remarks",
       "pickupReferenceNumber": "Pickup Reference Number",
       "status": "Status",
+      "order": "Order",
       "courier": "Courier",
       "escalation": "Escalation"
     }

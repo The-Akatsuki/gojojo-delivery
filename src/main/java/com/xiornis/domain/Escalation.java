@@ -27,7 +27,7 @@ public class Escalation implements Serializable {
 
     @OneToMany(mappedBy = "escalation")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "courier", "escalation" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "order", "courier", "escalation" }, allowSetters = true)
     private Set<Manifest> manifests = new HashSet<>();
 
     @ManyToOne

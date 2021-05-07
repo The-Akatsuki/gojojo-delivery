@@ -135,6 +135,13 @@
       "ownerSide": true
     },
     {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "manifest",
+      "otherEntityRelationshipName": "order",
+      "relationshipName": "manifest",
+      "ownerSide": false
+    },
+    {
       "relationshipType": "many-to-one",
       "otherEntityName": "paymentMethod",
       "otherEntityRelationshipName": "order",

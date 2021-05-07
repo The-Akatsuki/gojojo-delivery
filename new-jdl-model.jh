@@ -170,6 +170,7 @@ enum OrderStatus{
 
 relationship OneToOne{
     Order{buyerDetails} to OrderBuyerDetails{order} 
+    Manifest{order} to  Order{manifest}
 }
 
 

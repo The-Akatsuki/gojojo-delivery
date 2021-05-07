@@ -42,10 +42,10 @@ describe('Component Tests', () => {
     describe('ngOnInit', () => {
       it('Should call Order query and add missing value', () => {
         const shipmentActivity: IShipmentActivity = { id: 456 };
-        const order: IOrder = { id: 96360 };
+        const order: IOrder = { id: 29939 };
         shipmentActivity.order = order;
 
-        const orderCollection: IOrder[] = [{ id: 61547 }];
+        const orderCollection: IOrder[] = [{ id: 17935 }];
         spyOn(orderService, 'query').and.returnValue(of(new HttpResponse({ body: orderCollection })));
         const additionalOrders = [order];
         const expectedCollection: IOrder[] = [...additionalOrders, ...orderCollection];
@@ -61,7 +61,7 @@ describe('Component Tests', () => {
 
       it('Should update editForm', () => {
         const shipmentActivity: IShipmentActivity = { id: 456 };
-        const order: IOrder = { id: 80077 };
+        const order: IOrder = { id: 87953 };
         shipmentActivity.order = order;
 
         activatedRoute.data = of({ shipmentActivity });
